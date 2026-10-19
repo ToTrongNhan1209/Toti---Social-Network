@@ -1,0 +1,519 @@
+[
+  {
+    "id": "fb-followers",
+    "platform": "facebook",
+    "category": "growth",
+    "title": "Tăng Followers Facebook Cá Nhân",
+    "description": "Tăng lượng người theo dõi trang cá nhân thực chất lượng cao, giúp tăng độ uy tín và thương hiệu bản thân.",
+    "icon": "👥",
+    "color": "#1877F2",
+    "gradient": "from-blue-600 to-blue-800",
+    "features": [
+      "Followers thật 100%",
+      "Tăng tự nhiên không tụt",
+      "Không cần mật khẩu",
+      "Bảo hành 30 ngày bù tự động"
+    ],
+    "startingPrice": 45000,
+    "unit": "1.000 follow",
+    "popular": true
+  },
+  {
+    "id": "fb-likes-fanpage",
+    "platform": "facebook",
+    "category": "growth",
+    "title": "Tăng Like & Follow Fanpage",
+    "description": "Tăng đồng thời lượt Like và Follow cho Fanpage Facebook, chuẩn SEO và nâng cao tỷ lệ chốt đơn bán hàng.",
+    "icon": "👍",
+    "color": "#1877F2",
+    "gradient": "from-blue-500 to-blue-700",
+    "features": [
+      "Like & Follow người dùng thật",
+      "Tăng đề xuất trang",
+      "Cải thiện uy tín thương hiệu",
+      "Giao hàng đúng hẹn"
+    ],
+    "startingPrice": 55000,
+    "unit": "1.000 like",
+    "popular": true
+  },
+  {
+    "id": "fb-post-likes",
+    "platform": "facebook",
+    "category": "interaction",
+    "title": "Tăng Like & Reaction Bài Viết",
+    "description": "Tăng cảm xúc (Thích, Yêu thích, Thương thương, Haha, Wow) cho bài viết cá nhân hoặc Fanpage.",
+    "icon": "❤️",
+    "color": "#1877F2",
+    "gradient": "from-blue-400 to-blue-600",
+    "features": [
+      "Tùy chọn loại cảm xúc",
+      "Tăng ngay sau 5-10 phút",
+      "An toàn tuyệt đối",
+      "Giúp bài viết lên top feed"
+    ],
+    "startingPrice": 15000,
+    "unit": "1.000 like",
+    "popular": true
+  },
+  {
+    "id": "fb-comments",
+    "platform": "facebook",
+    "category": "interaction",
+    "title": "Tăng Bình Luận (Seeding Comment)",
+    "description": "Tạo các bình luận khen ngợi, hỏi giá, phản hồi tích cực theo kịch bản tùy chỉnh để kích cầu khách hàng.",
+    "icon": "💬",
+    "color": "#1877F2",
+    "gradient": "from-blue-500 to-indigo-600",
+    "features": [
+      "Nội dung tự soạn tùy ý",
+      "Tài khoản avatar xịn",
+      "Giãn cách thời gian tự nhiên",
+      "Kích thích mua hàng"
+    ],
+    "startingPrice": 25000,
+    "unit": "100 bình luận"
+  },
+  {
+    "id": "fb-share",
+    "platform": "facebook",
+    "category": "reach",
+    "title": "Tăng Chia Sẻ (Share) Bài Viết",
+    "description": "Chia sẻ bài viết lên các trang cá nhân và hội nhóm lớn nhằm lan tỏa thông điệp viral mạnh mẽ.",
+    "icon": "🚀",
+    "color": "#1877F2",
+    "gradient": "from-indigo-600 to-blue-600",
+    "features": [
+      "Share công khai",
+      "Tăng reach tự nhiên",
+      "Hỗ trợ bài minigame / event",
+      "Tốc độ nhanh"
+    ],
+    "startingPrice": 30000,
+    "unit": "100 share"
+  },
+  {
+    "id": "fb-view-video",
+    "platform": "facebook",
+    "category": "reach",
+    "title": "Tăng View Video & Reels Facebook",
+    "description": "Tăng lượt xem video dài và video ngắn Reels trên Facebook giúp đẩy video vào tab Watch đề xuất.",
+    "icon": "🎬",
+    "color": "#1877F2",
+    "gradient": "from-blue-600 to-cyan-600",
+    "features": [
+      "View giữ chân cao",
+      "Đẩy video lên đề xuất",
+      "Hỗ trợ video Reels & Story",
+      "Tối ưu hóa kiếm tiền"
+    ],
+    "startingPrice": 20000,
+    "unit": "1.000 view"
+  },
+  {
+    "id": "fb-livestream",
+    "platform": "facebook",
+    "category": "live_vip",
+    "title": "Tăng Mắt Livestream Facebook",
+    "description": "Duy trì số lượng mắt xem trực tiếp ổn định từ 30 phút đến 4 giờ giúp livestream đông vui, tạo hiệu ứng đám đông.",
+    "icon": "👁️",
+    "color": "#1877F2",
+    "gradient": "from-blue-700 to-indigo-700",
+    "features": [
+      "Mắt xem ổn định suốt live",
+      "Lên mắt sau 2 phút",
+      "Tự động thả like/tim",
+      "Tăng chuyển đổi bán hàng"
+    ],
+    "startingPrice": 40000,
+    "unit": "100 mắt / 60p",
+    "popular": true
+  },
+  {
+    "id": "fb-group-members",
+    "platform": "facebook",
+    "category": "growth",
+    "title": "Tăng Thành Viên Nhóm (Group)",
+    "description": "Tăng số lượng thành viên tham gia nhóm Facebook, xây dựng cộng đồng kinh doanh hoặc giải trí đông đúc.",
+    "icon": "🏰",
+    "color": "#1877F2",
+    "gradient": "from-blue-600 to-sky-600",
+    "features": [
+      "Thành viên Việt Nam thật",
+      "Không cần duyệt thủ công",
+      "Bảo hành 30 ngày",
+      "Tăng độ trust của nhóm"
+    ],
+    "startingPrice": 60000,
+    "unit": "1.000 thành viên"
+  },
+  {
+    "id": "fb-vip-like",
+    "platform": "facebook",
+    "category": "live_vip",
+    "title": "Gói VIP Like Tháng Tự Động",
+    "description": "Cài đặt một lần, mỗi khi bạn đăng bài viết mới hệ thống sẽ tự động tăng like ngay lập tức mà không cần đặt lại.",
+    "icon": "⭐",
+    "color": "#1877F2",
+    "gradient": "from-amber-500 to-blue-600",
+    "features": [
+      "Tự động nhận diện bài mới",
+      "Không giới hạn số bài/ngày",
+      "Tiết kiệm 40% chi phí",
+      "Dành cho người bận rộn"
+    ],
+    "startingPrice": 150000,
+    "unit": "1 tháng"
+  },
+  {
+    "id": "fb-account",
+    "platform": "facebook",
+    "category": "live_vip",
+    "title": "Tài Khoản VIA / BM Kháng Sẵn",
+    "description": "Cung cấp tài khoản VIA ngoại/Việt cổ, Fanpage tích xanh, BM Doanh nghiệp Agency sẵn ngưỡng chạy ads.",
+    "icon": "🔐",
+    "color": "#1877F2",
+    "gradient": "from-indigo-500 to-blue-600",
+    "features": [
+      "VIA đã kháng 902/282",
+      "BM Doanh nghiệp uy tín",
+      "Hỗ trợ đăng nhập & bảo hành",
+      "Phù hợp chạy ads sạch"
+    ],
+    "startingPrice": 120000,
+    "unit": "1 tài khoản"
+  },
+  {
+    "id": "tt-followers",
+    "platform": "tiktok",
+    "category": "growth",
+    "title": "Tăng Followers TikTok Chuẩn",
+    "description": "Tăng người theo dõi TikTok thực, hỗ trợ kênh đạt mốc 1.000 Follow mở tính năng Livestream và gắn link Bio/TikTok Shop.",
+    "icon": "🎵",
+    "color": "#FF0050",
+    "gradient": "from-pink-500 to-red-600",
+    "features": [
+      "Followers người dùng thật",
+      "Đủ điều kiện mở Livestream",
+      "Bảo hành 30 ngày bù tụt",
+      "Tăng đều tự nhiên"
+    ],
+    "startingPrice": 65000,
+    "unit": "1.000 follow",
+    "popular": true
+  },
+  {
+    "id": "tt-views",
+    "platform": "tiktok",
+    "category": "reach",
+    "title": "Tăng View TikTok Đẩy FYP",
+    "description": "Tăng lượt xem video TikTok siêu tốc, tạo tín hiệu tốt để thuật toán đẩy video lên tab Thịnh hành (For You Page).",
+    "icon": "🔥",
+    "color": "#FF0050",
+    "gradient": "from-red-500 to-pink-600",
+    "features": [
+      "View bắt đầu sau 5 phút",
+      "Kích hoạt đề xuất FYP",
+      "Tăng độ viral cho video",
+      "Chi phí siêu rẻ"
+    ],
+    "startingPrice": 10000,
+    "unit": "10.000 view",
+    "popular": true
+  },
+  {
+    "id": "tt-likes",
+    "platform": "tiktok",
+    "category": "interaction",
+    "title": "Tăng Tim (Like) Video TikTok",
+    "description": "Tăng lượt thả tim cho video TikTok, cải thiện tỷ lệ tương tác (engagement rate) và giữ vị trí trên feed.",
+    "icon": "💗",
+    "color": "#FF0050",
+    "gradient": "from-pink-400 to-red-500",
+    "features": [
+      "Tim người dùng thật",
+      "Cải thiện tỷ lệ like/view",
+      "Hỗ trợ kéo video viral",
+      "Tốc độ nhanh"
+    ],
+    "startingPrice": 30000,
+    "unit": "1.000 tim"
+  },
+  {
+    "id": "tt-save",
+    "platform": "tiktok",
+    "category": "reach",
+    "title": "Tăng Lưu Video (Save / Bookmark)",
+    "description": "Thuật toán TikTok năm 2025 ưu tiên điểm Save cực cao. Tăng lượt lưu video giúp video đạt chỉ số nội dung giá trị.",
+    "icon": "🔖",
+    "color": "#FF0050",
+    "gradient": "from-purple-500 to-pink-500",
+    "features": [
+      "Trọng số thuật toán cao nhất",
+      "Tăng điểm phân phối FYP",
+      "Người xem thực tế",
+      "Giao hàng nhanh"
+    ],
+    "startingPrice": 25000,
+    "unit": "500 lượt lưu"
+  },
+  {
+    "id": "tt-livestream",
+    "platform": "tiktok",
+    "category": "live_vip",
+    "title": "Tăng Mắt Livestream TikTok PK",
+    "description": "Duy trì số lượng người xem trực tiếp trên livestream TikTok, tăng uy tín khi thi đấu PK hoặc bán hàng TikTok Shop.",
+    "icon": "🎙️",
+    "color": "#FF0050",
+    "gradient": "from-red-600 to-pink-600",
+    "features": [
+      "Mắt xem ổn định suốt live",
+      "Lên mắt chỉ sau 1-3 phút",
+      "Hỗ trợ auto thả tim live",
+      "Tăng tương tác phòng live"
+    ],
+    "startingPrice": 50000,
+    "unit": "100 mắt / 60p",
+    "popular": true
+  },
+  {
+    "id": "ig-followers",
+    "platform": "instagram",
+    "category": "growth",
+    "title": "Tăng Followers Instagram Xịn",
+    "description": "Tăng người theo dõi Instagram tài khoản có avatar, bài viết hoàn chỉnh, nâng tầm thẩm mỹ và uy tín thương hiệu.",
+    "icon": "📸",
+    "color": "#E1306C",
+    "gradient": "from-purple-500 via-pink-500 to-orange-400",
+    "features": [
+      "Followers profile đẹp có avatar",
+      "Lựa chọn VN hoặc Quốc tế",
+      "Không tụt, bảo hành 30 ngày",
+      "Phù hợp KOLs / Shop"
+    ],
+    "startingPrice": 75000,
+    "unit": "1.000 follow",
+    "popular": true
+  },
+  {
+    "id": "ig-likes",
+    "platform": "instagram",
+    "category": "interaction",
+    "title": "Tăng Like Ảnh & Bài Viết Instagram",
+    "description": "Tăng lượt thích cho các bài post ảnh, carousel hoặc video trên Instagram, tạo ấn tượng chuyên nghiệp.",
+    "icon": "💜",
+    "color": "#E1306C",
+    "gradient": "from-pink-500 to-purple-600",
+    "features": [
+      "Like chất lượng cao",
+      "Tăng reach tài khoản",
+      "Giao hàng sau 15 phút",
+      "Không cần mật khẩu"
+    ],
+    "startingPrice": 20000,
+    "unit": "1.000 like"
+  },
+  {
+    "id": "ig-reels",
+    "platform": "instagram",
+    "category": "reach",
+    "title": "Tăng View Instagram Reels (Explore)",
+    "description": "Thúc đẩy lượt xem video Reels trên Instagram, giúp video được thuật toán đẩy vào mục Khám Phá (Explore tab).",
+    "icon": "✨",
+    "color": "#E1306C",
+    "gradient": "from-orange-400 via-pink-500 to-purple-500",
+    "features": [
+      "Đưa video vào tab Explore",
+      "View tự nhiên chuẩn quốc tế",
+      "Tăng follow kèm theo",
+      "Giao hàng tức thì"
+    ],
+    "startingPrice": 15000,
+    "unit": "5.000 view",
+    "popular": true
+  },
+  {
+    "id": "ig-story",
+    "platform": "instagram",
+    "category": "reach",
+    "title": "Tăng View Instagram Story 24h",
+    "description": "Tăng người xem tin Story của bạn, chứng minh mức độ quan tâm của cộng đồng đối với cuộc sống và sản phẩm của bạn.",
+    "icon": "⭕",
+    "color": "#E1306C",
+    "gradient": "from-purple-600 to-pink-500",
+    "features": [
+      "Tăng view Story sau 10p",
+      "Người xem profile thật",
+      "Hỗ trợ nhiều Story cùng lúc",
+      "Chi phí tiết kiệm"
+    ],
+    "startingPrice": 20000,
+    "unit": "1.000 view"
+  },
+  {
+    "id": "yt-subscribers",
+    "platform": "youtube",
+    "category": "growth",
+    "title": "Tăng Subscriber YouTube Thật",
+    "description": "Tăng lượng người đăng ký kênh YouTube thật, bền vững, hỗ trợ kênh đủ điều kiện 1.000 Sub Bật Kiếm Tiền (YPP).",
+    "icon": "▶️",
+    "color": "#FF0000",
+    "gradient": "from-red-600 to-rose-700",
+    "features": [
+      "Sub thật không bị quét trừ",
+      "Hỗ trợ đạt điều kiện Bật Kiếm Tiền",
+      "Bảo hành trọn đời / 30 ngày",
+      "Tăng đều mỗi ngày"
+    ],
+    "startingPrice": 180000,
+    "unit": "1.000 sub",
+    "popular": true
+  },
+  {
+    "id": "yt-views",
+    "platform": "youtube",
+    "category": "reach",
+    "title": "Tăng View YouTube Chuẩn SEO",
+    "description": "Tăng lượt xem video YouTube từ nguồn tìm kiếm và video đề xuất, tỷ lệ giữ chân cao (High Retention 3-5 phút).",
+    "icon": "🎥",
+    "color": "#FF0000",
+    "gradient": "from-red-500 to-red-700",
+    "features": [
+      "Thời gian xem giữ chân cao",
+      "An toàn 100% cho kênh kiếm tiền",
+      "Chuẩn thuật toán Google/YouTube",
+      "Bắt đầu sau 1 giờ"
+    ],
+    "startingPrice": 40000,
+    "unit": "1.000 view"
+  },
+  {
+    "id": "yt-hours",
+    "platform": "youtube",
+    "category": "growth",
+    "title": "Trọn Gói 4.000 Giờ Xem Bật Kiếm Tiền",
+    "description": "Dịch vụ chuyên biệt giúp kênh của bạn đạt đủ 4.000 giờ xem hợp lệ trong 365 ngày để nộp đơn Bật Kiếm Tiền YouTube.",
+    "icon": "⏱️",
+    "color": "#FF0000",
+    "gradient": "from-amber-600 to-red-600",
+    "features": [
+      "Đủ 4.000 giờ xem chuẩn YPP",
+      "Tư vấn tối ưu kênh trước khi nộp đơn",
+      "Bảo hành duyệt kiếm tiền",
+      "Hỗ trợ kênh từ A-Z"
+    ],
+    "startingPrice": 450000,
+    "unit": "Gói trọn gói",
+    "popular": true
+  },
+  {
+    "id": "yt-shorts",
+    "platform": "youtube",
+    "category": "reach",
+    "title": "Tăng View YouTube Shorts Lên Xu Hướng",
+    "description": "Tăng lượt xem cho video ngắn YouTube Shorts, tận dụng làn sóng đề xuất video ngắn của thuật toán YouTube.",
+    "icon": "⚡",
+    "color": "#FF0000",
+    "gradient": "from-red-600 to-orange-600",
+    "features": [
+      "Đẩy Shorts lên feed đề xuất",
+      "Tăng view siêu tốc",
+      "Kéo sub tự nhiên cho kênh",
+      "Giá cực tốt"
+    ],
+    "startingPrice": 20000,
+    "unit": "5.000 view"
+  },
+  {
+    "id": "th-followers",
+    "platform": "threads",
+    "category": "growth",
+    "title": "Tăng Followers Threads Meta",
+    "description": "Tăng người theo dõi trên nền tảng mạng xã hội Threads của Meta, khẳng định vị thế tiên phong trong cộng đồng.",
+    "icon": "🧵",
+    "color": "#000000",
+    "gradient": "from-gray-800 to-black",
+    "features": [
+      "Followers thật từ Meta",
+      "Tăng uy tín trang cá nhân",
+      "Bảo hành 30 ngày",
+      "Kích hoạt sau 15 phút"
+    ],
+    "startingPrice": 80000,
+    "unit": "1.000 follow",
+    "popular": true
+  },
+  {
+    "id": "th-likes",
+    "platform": "threads",
+    "category": "interaction",
+    "title": "Tăng Like Bài Đăng Threads",
+    "description": "Tăng lượt thích cho bài viết trên Threads giúp bài đăng dễ dàng được đẩy lên tab Đề xuất của người dùng khác.",
+    "icon": "🖤",
+    "color": "#000000",
+    "gradient": "from-zinc-700 to-zinc-900",
+    "features": [
+      "Like lên nhanh",
+      "Tăng tỷ lệ viral nội dung",
+      "An toàn tuyệt đối",
+      "Không cần mật khẩu"
+    ],
+    "startingPrice": 35000,
+    "unit": "1.000 like"
+  },
+  {
+    "id": "tg-channel-members",
+    "platform": "telegram",
+    "category": "growth",
+    "title": "Tăng Member Kênh (Channel) Telegram",
+    "description": "Tăng số lượng người đăng ký kênh Telegram Channel thông báo, tin tức, tín hiệu đầu tư và thương mại.",
+    "icon": "📢",
+    "color": "#229ED9",
+    "gradient": "from-sky-500 to-blue-600",
+    "features": [
+      "Member chất lượng cao",
+      "Tăng uy tín kênh thông tin",
+      "Không cần quyền Admin",
+      "Bảo hành 30 ngày"
+    ],
+    "startingPrice": 65000,
+    "unit": "1.000 member",
+    "popular": true
+  },
+  {
+    "id": "tg-group-members",
+    "platform": "telegram",
+    "category": "growth",
+    "title": "Tăng Member Nhóm (Group) Telegram",
+    "description": "Thêm thành viên vào nhóm chat cộng đồng Telegram Group, tạo không khí sôi nổi và kích thích thảo luận.",
+    "icon": "💬",
+    "color": "#229ED9",
+    "gradient": "from-blue-500 to-cyan-600",
+    "features": [
+      "Thêm nhanh không giới hạn",
+      "Hỗ trợ nhóm public và private",
+      "An toàn không sợ ban nhóm",
+      "Hỗ trợ nhiệt tình"
+    ],
+    "startingPrice": 75000,
+    "unit": "1.000 member"
+  },
+  {
+    "id": "tg-post-views",
+    "platform": "telegram",
+    "category": "reach",
+    "title": "Tăng View Bài Đăng Telegram",
+    "description": "Tăng con mắt xem cho từng bài viết trong kênh Telegram Channel, chứng minh kênh có lượng độc giả theo dõi lớn.",
+    "icon": "👀",
+    "color": "#229ED9",
+    "gradient": "from-cyan-500 to-blue-500",
+    "features": [
+      "View thật bắt mắt",
+      "Tăng độ tin cậy cho bài viết",
+      "Hỗ trợ gói tự động các bài mới",
+      "Chi phí cực rẻ"
+    ],
+    "startingPrice": 10000,
+    "unit": "1.000 view"
+  }
+]

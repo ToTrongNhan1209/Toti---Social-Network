@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-labelledby="title-av">
+  <title id="title-av">Tô Trọng Nhân - Mint Brand Avatar</title>
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#183B32"/>
+      <stop offset="55%" stop-color="#237A60"/>
+      <stop offset="100%" stop-color="#112721"/>
+    </linearGradient>
+    <radialGradient id="highlight" cx="28%" cy="25%" r="65%">
+      <stop offset="0%" stop-color="#A6E4D1" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#183B32" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Deep Forest & Vibrant Mint Gradient Background -->
+  <rect width="512" height="512" rx="115" fill="url(#bgGrad)"/>
+  <rect width="512" height="512" rx="115" fill="url(#highlight)"/>
+  
+  <!-- Mint Accent Border -->
+  <rect x="8" y="8" width="496" height="496" rx="107" fill="none" stroke="#A6E4D1" stroke-width="6" stroke-opacity="0.85"/>
+
+  <!-- Centered Mint & White TN Infinity Unlock Symbol -->
+  <g transform="translate(108, 108) scale(1.156)">
+    <!-- Shackle in Brilliant White -->
+    <path fill="#FFFFFF" fill-rule="evenodd" d="M68 102 V78 C68 44.8 94.8 18 128 18 C161.2 18 188 44.8 188 78 V102 H162 V78 C162 59.2 146.8 44 128 44 C109.2 44 94 59.2 94 78 V102 Z"/>
+    
+    <!-- T Center Stem in Radiant Mint Accent -->
+    <polygon fill="#A6E4D1" points="115,90 141,90 141,136 115,136"/>
+    
+    <!-- N Body with Keyhole in Brilliant White -->
+    <path fill="#FFFFFF" fill-rule="evenodd" d="
+      M 48 102 H 76 V 218 H 48 Z 
+      M 180 102 H 208 V 218 H 180 Z 
+      M 76 108 H 108 L 180 180 V 212 H 148 L 76 140 Z 
+      M 48 206 H 112 V 230 H 48 Z
+      M 144 206 H 208 V 230 H 144 Z
+      M 128 146 A 12 12 0 1 0 128.1 146 Z
+      M 124 156 H 132 L 135 180 H 121 Z
+    "/>
+  </g>
+</svg>

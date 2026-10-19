@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256"><title>Tô Trọng Nhân - Logo</title><g transform="translate(-16.26 -10.62) scale(1.127)">
+  <title id="title-small">TN Infinity Unlock - Small-Size Master</title>
+  <g id="symbol">
+    <!-- Bolder Shackle -->
+    <path fill="#0B0F17" fill-rule="evenodd" d="M64 104 V78 C64 42.6 92.6 14 128 14 C163.4 14 192 42.6 192 78 V104 H160 V78 C160 60.3 145.7 46 128 46 C110.3 46 96 60.3 96 78 V104 Z"/>
+
+    <!-- T Stem -->
+    <polygon fill="#0B0F17" points="112,90 144,90 144,138 112,138"/>
+
+    <!-- Lock Body & N with Enlarged Keyhole -->
+    <path fill="#0B0F17" fill-rule="evenodd" d="
+      M 44 104 H 76 V 222 H 44 Z 
+      M 180 104 H 212 V 222 H 180 Z 
+      M 76 110 H 112 L 180 178 V 216 H 144 L 76 148 Z 
+      M 44 204 H 116 V 232 H 44 Z
+      M 140 204 H 212 V 232 H 140 Z
+      M 128 146 A 15 15 0 1 0 128.1 146 Z
+      M 122 158 H 134 L 138 186 H 118 Z
+    "/>
+  </g>
+</g></svg>

@@ -1,0 +1,26 @@
+{
+  "name": "Tô Trọng Nhân",
+  "nickname": "Toti",
+  "title": "Chuyên Gia Thiết Kế Giao Diện(ToTrongNhan)",
+  "email": "totrongnhan1209@gmail.com",
+  "phone": "0981587469",
+  "zalo": "0981587469",
+  "role": "Quản trị viên cấp cao (Super Admin)",
+  "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop&crop=face",
+  "coverImage": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200&h=400&fit=crop",
+  "bio": "Chuyên gia phát triển tương tác và chiến lược mạng xã hội đa nền tảng với hơn 5 năm kinh nghiệm. Phụ trách quản lý trực tiếp hệ sinh thái ToTrongNhan và giải pháp tăng trưởng thương hiệu cho hàng chục nghìn nhà sáng tạo nội dung, doanh nghiệp và KOLs.",
+  "address": "TP. Hồ Chí Minh, Việt Nam",
+  "social": {
+    "facebook": "https://facebook.com/totrongnhan",
+    "tiktok": "https://tiktok.com/@totrongnhan",
+    "instagram": "https://instagram.com/totrongnhan",
+    "youtube": "https://youtube.com/@totrongnhan",
+    "telegram": "https://t.me/totrongnhan"
+  },
+  "security": {
+    "twoFactorEnabled": true,
+    "authProvider": "Google OAuth 2.0 (Verified)",
+    "lastLoginAt": "2026-10-19T09:30:00.000Z"
+  },
+  "updatedAt": "2026-10-19T04:40:50.258Z"
+}

@@ -1,0 +1,43 @@
+{
+  "name": "totrongnhan",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "build:cf": "opennextjs-cloudflare build",
+    "deploy": "opennextjs-cloudflare build && wrangler deploy",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@types/dompurify": "^3.0.5",
+    "@types/sanitize-html": "^2.16.1",
+    "@types/three": "^0.186.0",
+    "clsx": "^2.1.1",
+    "date-fns": "^4.4.0",
+    "dompurify": "^3.4.16",
+    "framer-motion": "^13.4.2",
+    "lucide-react": "^1.47.0",
+    "next": "16.3.6",
+    "next-themes": "^0.4.6",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "sanitize-html": "^2.17.7",
+    "tailwind-merge": "^3.7.0",
+    "three": "^0.186.1",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@opennextjs/cloudflare": "^1.20.11",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.6",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "wrangler": "^4.151.0"
+  }
+}

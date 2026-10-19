@@ -1,0 +1,48 @@
+{
+  "brand": "Tô Trọng Nhân",
+  "tagline": "Social Media Account Support & Security",
+  "brief": "Hệ thống hỗ trợ và xử lý sự cố tài khoản mạng xã hội toàn diện: mở khóa checkpoint, bảo mật 2FA, khôi phục tài khoản bị xâm nhập và bảo vệ danh tính số chuyên nghiệp.",
+  "adjectives": [
+    "uy tín",
+    "bảo mật",
+    "tối giản",
+    "sang trọng",
+    "chuyên nghiệp"
+  ],
+  "criteria": "Biểu tượng nhận diện sắc nét từ 16px (favicon) đến billboard; kết hợp hoàn hảo giữa tên cá nhân (T-N) và nghiệp vụ mở khóa/bảo mật; tone màu đen - trắng - kim loại tối giản thể hiện phong thái chuyên gia.",
+  "industry": "services",
+  "mockups": ["website", "social", "badge", "business-card", "app-icon", "signage"],
+  "nav": [
+    "Dịch vụ hỗ trợ",
+    "Bảo mật tài khoản",
+    "Khôi phục truy cập",
+    "Liên hệ tư vấn"
+  ],
+  "brand_color": "#0B0F17",
+  "tile_color": "#0B0F17",
+  "greyscale": false,
+  "final": true,
+  "designer": "Antigravity Identity Studio",
+  "round": 1,
+  "concepts": [
+    {
+      "name": "TN Infinity Unlock",
+      "symbol": "final-symbol.svg",
+      "lockup": "final-horizontal.svg",
+      "stacked": "final-stacked.svg",
+      "avatar": "final-avatar.svg",
+      "idea": "Móc khóa bảo mật kết hợp lỗ khóa âm bản và mắt xích vô cực, tượng trưng cho việc mở khóa và khôi phục quyền truy cập mạng xã hội.",
+      "rationale": [
+        "Vòm trên mô phỏng móc khóa an toàn chữ T, đan lồng vững chắc vào thân khóa chữ N.",
+        "Lỗ khóa trung tâm cắt bằng khoảng âm bản (negative space) tinh xảo, thể hiện năng lực giải cứu tài khoản bị khóa.",
+        "Thiết kế hình học chuẩn mực, cân bằng quang học và tối ưu sắc nét ở kích thước siêu nhỏ (16px)."
+      ]
+    }
+  ],
+  "recommendation": "TN Infinity Unlock — Thể hiện trực diện, rõ ràng và uy tín nhất cho dịch vụ hỗ trợ tài khoản mạng xã hội của Tô Trọng Nhân.",
+  "next_steps": [
+    "Áp dụng vào website, fanpage và các ấn phẩm số",
+    "Sử dụng bộ favicon và app icon cho nền tảng web",
+    "Tuân thủ khoảng cách an toàn (clear space) và quy chuẩn màu sắc"
+  ]
+}

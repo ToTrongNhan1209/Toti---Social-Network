@@ -1,0 +1,37 @@
+# .gitignore additions for security (Rule #2)
+# This appends to Next.js default .gitignore
+
+# Environment files (NEVER commit these)
+.env
+.env.local
+.env.*.local
+.env.production
+
+# Keys & secrets
+*.pem
+*.key
+*.cert
+secrets/
+
+# Build artifacts
+.next/
+.open-next/
+.wrangler/
+out/
+dist/
+*.tsbuildinfo
+
+# Node modules
+node_modules/
+
+# IDE
+.vscode/settings.json
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
