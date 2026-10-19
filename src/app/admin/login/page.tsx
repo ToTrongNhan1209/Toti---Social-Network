@@ -240,7 +240,7 @@ function LoginFormContent() {
         {/* Brand Header */}
         <div style={{ textAlign: "center", marginBottom: "2rem" }}>
           <div style={{ display: "inline-block", marginBottom: "1rem" }}>
-            <BrandLogo size={52} showText={false} />
+            <BrandLogo size={52} showText={false} href="/" />
           </div>
           <h1
             style={{

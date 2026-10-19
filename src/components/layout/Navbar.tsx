@@ -171,7 +171,7 @@ export default function Navbar() {
       <div className="container-xl flex items-center justify-between gap-2 sm:gap-6" style={{ height: "64px" }}>
 
         {/* Official Brand Logo (Image only) */}
-        <BrandLogo size={42} showText={false} />
+        <BrandLogo size={42} showText={false} href="/" />
 
         {/* Desktop Nav */}
         <nav

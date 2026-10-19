@@ -118,7 +118,7 @@ export default function Footer() {
           {/* Brand col */}
           <div style={{ maxWidth: 300 }}>
             <div style={{ marginBottom: "1rem" }}>
-              <BrandLogo colorMode="white" size={38} showText={true} />
+              <BrandLogo colorMode="white" size={38} showText={true} href="/" />
             </div>
             <p style={{ fontSize: "0.875rem", lineHeight: 1.8, marginBottom: "1.5rem", color: "#C4DED3" }}>
               Chuyên cung cấp dịch vụ hỗ trợ mạng xã hội Facebook, TikTok, Instagram – uy tín, chất lượng, bảo hành 30 ngày.

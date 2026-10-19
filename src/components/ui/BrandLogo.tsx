@@ -24,7 +24,7 @@ export default function BrandLogo({
   colorMode = "mint",
   showText = false,
   className = "",
-  href = "/",
+  href,
 }: BrandLogoProps) {
   const content = (
     <div
