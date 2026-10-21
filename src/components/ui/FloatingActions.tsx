@@ -28,9 +28,9 @@ export default function FloatingActions() {
     <div
       style={{
         position: "fixed",
-        bottom: "clamp(1rem, 2.5vw, 1.75rem)",
+        bottom: "calc(clamp(1rem, 2.5vw, 1.75rem) + 68px)",
         right: "clamp(1rem, 2.5vw, 1.75rem)",
-        zIndex: 999,
+        zIndex: 997,
         display: "flex",
         flexDirection: "column",
         gap: "0.6rem",

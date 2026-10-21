@@ -12,6 +12,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import FloatingActions from "@/components/ui/FloatingActions";
 import FloatingParticles from "@/components/ui/FloatingParticles";
+import AiChatbot from "@/components/ui/AiChatbot";
 
 export default function PublicLayoutShell({
   children,
@@ -35,6 +36,7 @@ export default function PublicLayoutShell({
       <Navbar />
       <main className="flex-1">{children}</main>
       <FloatingActions />
+      <AiChatbot />
       <Footer />
     </>
   );
