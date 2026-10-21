@@ -20,6 +20,16 @@ export async function GET(req: NextRequest) {
       name: session.name,
       avatar: session.avatar,
       role: session.role,
+      roleId: session.roleId || "super_admin",
+      permissions: session.permissions || [
+        "manage_staff",
+        "manage_services",
+        "manage_blog",
+        "manage_comments",
+        "view_analytics",
+        "manage_contacts",
+        "manage_settings",
+      ],
       authProvider: session.authProvider,
     },
   });

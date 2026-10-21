@@ -59,11 +59,11 @@ export async function POST(req: NextRequest) {
 
     // Validate audience if client ID is configured
     const validClientIds = [
-      "274672652455-k2lhi691i2jhvfn7a8ss1365g6acvm8e.apps.googleusercontent.com",
-      "274672652455-7rare3ft6a63dbou4bi5b6sctq9sr54b.apps.googleusercontent.com",
+      process.env.LOCAL_GOOGLE_CLIENT_ID,
+      process.env.HOSTED_GOOGLE_CLIENT_ID,
       process.env.GOOGLE_CLIENT_ID,
       process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
-    ].filter(Boolean);
+    ].filter(Boolean) as string[];
 
     if (tokenInfo.aud && !validClientIds.includes(tokenInfo.aud)) {
       console.warn("Google token aud mismatch:", tokenInfo.aud, validClientIds);
@@ -78,8 +78,13 @@ export async function POST(req: NextRequest) {
 
     const cleanEmail = tokenInfo.email.trim().toLowerCase();
 
-    // Verify authorized admin email whitelist
-    if (!isAuthorizedAdminEmail(cleanEmail)) {
+    // Retrieve Staff Profile & Role Permissions
+    const { getStaffByEmail, getRoleById, updateStaff, isAuthorizedStaffEmail } = await import("@/lib/staff-store");
+    const isStaff = isAuthorizedStaffEmail(cleanEmail);
+    const isAdmin = isAuthorizedAdminEmail(cleanEmail);
+
+    // Verify authorized admin email whitelist or staff record
+    if (!isStaff && !isAdmin) {
       return NextResponse.json(
         {
           success: false,
@@ -89,16 +94,58 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const adminName = tokenInfo.name?.trim() || "Tô Trọng Nhân";
+    const staff = getStaffByEmail(cleanEmail);
+
+    if (staff && staff.status === "locked") {
+      return NextResponse.json(
+        {
+          success: false,
+          message: `Tài khoản nhân viên (${cleanEmail}) đã bị tạm khóa quyền truy cập. Vui lòng liên hệ Tô Trọng Nhân.`,
+        },
+        { status: 403 }
+      );
+    }
+
+    const role = staff ? getRoleById(staff.roleId) : null;
+    const roleName = role ? role.name : (cleanEmail === "totrongnhan1209@gmail.com" ? "Super Administrator" : "Quản Trị Viên");
+    const permissions = role
+      ? role.permissions
+      : [
+          "manage_staff",
+          "manage_services",
+          "manage_blog",
+          "manage_comments",
+          "view_analytics",
+          "manage_contacts",
+          "manage_settings",
+        ];
+
+    // Update last login timestamp if registered staff
+    if (staff) {
+      try {
+        const now = new Date();
+        const formattedTime = `${now.getHours().toString().padStart(2, "0")}:${now
+          .getMinutes()
+          .toString()
+          .padStart(2, "0")} - ${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`;
+        updateStaff(staff.id, { lastLoginAt: formattedTime });
+      } catch {
+        // Ignore
+      }
+    }
+
+    const adminName = staff?.name || tokenInfo.name?.trim() || "Tô Trọng Nhân";
     const adminAvatar =
-      tokenInfo.picture?.trim() || "/logo/final-avatar.png";
+      tokenInfo.picture?.trim() || staff?.avatar || "/logo/final-avatar.png";
 
     // Generate signed session token with HMAC-SHA256
     const token = await signAdminToken({
       email: cleanEmail,
       name: adminName,
       avatar: adminAvatar,
-      role: "Super Administrator",
+      role: roleName,
+      roleId: staff?.roleId || "super_admin",
+      permissions: permissions as any,
       authProvider: "google",
     });
 
@@ -109,6 +156,8 @@ export async function POST(req: NextRequest) {
         email: cleanEmail,
         name: adminName,
         avatar: adminAvatar,
+        role: roleName,
+        permissions,
       },
     });
 

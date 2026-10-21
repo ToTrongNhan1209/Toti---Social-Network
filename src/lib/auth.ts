@@ -8,6 +8,8 @@ export interface AdminSession {
   name: string;
   avatar: string;
   role: string;
+  roleId?: string;
+  permissions?: string[];
   authProvider: "google" | "demo";
   issuedAt: number;
   expiresAt: number;
@@ -35,6 +37,9 @@ const SECRET_KEY =
  * Check if the email is allowed to access Admin
  */
 export function isAuthorizedAdminEmail(email: string): boolean {
+  const cleanEmail = email.trim().toLowerCase();
+
+  // Check environment variable overrides and hardcoded master list
   const envEmails = process.env.ADMIN_ALLOWED_EMAILS
     ? process.env.ADMIN_ALLOWED_EMAILS.split(",").map((e) => e.trim().toLowerCase())
     : [];
@@ -43,8 +48,7 @@ export function isAuthorizedAdminEmail(email: string): boolean {
     e.toLowerCase()
   );
 
-  // If specific emails configured, enforce; otherwise allow matching domain or list
-  return allAllowed.includes(email.toLowerCase()) || email.endsWith("@totrongnhan.vn");
+  return allAllowed.includes(cleanEmail) || cleanEmail.endsWith("@totrongnhan.vn");
 }
 
 /**

@@ -17,6 +17,7 @@ import {
   LogOut,
   ShieldCheck,
   CheckCircle2,
+  Users,
   AlertCircle,
   Menu,
   X,
@@ -29,10 +30,11 @@ import BrandLogo from "@/components/ui/BrandLogo";
 import AdminServicesManager from "@/components/admin/AdminServicesManager";
 import AdminBlogManager from "@/components/admin/AdminBlogManager";
 import AdminOverviewManager from "@/components/admin/AdminOverviewManager";
+import AdminStaffManager from "@/components/admin/AdminStaffManager";
 import AdminProfileManager from "@/components/admin/AdminProfileManager";
 import AdminWeatherWidget from "@/components/admin/AdminWeatherWidget";
 
-type AdminTab = "services" | "blog" | "overview" | "profile";
+type AdminTab = "services" | "blog" | "overview" | "staff" | "profile";
 
 const ADMIN_NAV_ITEMS: {
   id: AdminTab;
@@ -43,6 +45,7 @@ const ADMIN_NAV_ITEMS: {
   { id: "overview", label: "Dashboard & Biểu Đồ", desc: "Thống kê doanh thu & Tăng trưởng", icon: LayoutDashboard },
   { id: "services", label: "Quản Lý Dịch Vụ",     desc: "Dịch vụ MXH & Bảng giá",         icon: Zap },
   { id: "blog",     label: "Bài Viết Blog",        desc: "Tin tức & Hướng dẫn",            icon: BookOpen },
+  { id: "staff",    label: "Nhân Viên & Phân Quyền", desc: "Quản lý nhân sự & Vai trò CMS", icon: Users },
   { id: "profile",  label: "Hồ Sơ Quản Trị",      desc: "Thông tin cá nhân & Zalo",       icon: User },
 ];
 
@@ -1030,6 +1033,12 @@ export default function AdminDashboardPage() {
               {activeTab === "overview" && <AdminOverviewManager onSwitchTab={setActiveTab} />}
               {activeTab === "services" && <AdminServicesManager onToast={showToast} onSwitchTab={setActiveTab} />}
               {activeTab === "blog" && <AdminBlogManager onToast={showToast} />}
+              {activeTab === "staff" && (
+                <AdminStaffManager
+                  onToast={showToast}
+                  currentAdminEmail={adminUser?.email}
+                />
+              )}
               {activeTab === "profile" && (
                 <AdminProfileManager
                   onToast={showToast}

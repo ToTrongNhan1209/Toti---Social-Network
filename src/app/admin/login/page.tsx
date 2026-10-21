@@ -50,12 +50,14 @@ function LoginFormContent() {
   const from = searchParams.get("from") || "/admin";
 
   const urlError = searchParams.get("error");
-  const initialError =
-    urlError === "missing_credentials"
-      ? "Bạn chưa điền GOOGLE_CLIENT_SECRET vào file .env.local! Sau khi bấm nút 'Tạo nên' trên Google Cloud, hãy copy Client Secret dán vào dòng 8 của file .env.local."
-      : urlError
-      ? decodeURIComponent(urlError)
-      : null;
+  let initialError: string | null = null;
+  if (urlError === "missing_credentials") {
+    initialError = "Chưa cấu hình GOOGLE_CLIENT_SECRET! Hãy lấy Client Secret từ Google Cloud Console dán vào wrangler.jsonc hoặc .env.local.";
+  } else if (urlError && urlError.toLowerCase().includes("client secret")) {
+    initialError = "Mã Google Client Secret không khớp với Client ID đang chạy trên hosting. Vui lòng copy chính xác Client Secret tương ứng của Client ID này trong Google Cloud Console.";
+  } else if (urlError) {
+    initialError = decodeURIComponent(urlError);
+  }
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(initialError);
@@ -116,10 +118,11 @@ function LoginFormContent() {
       (window.location.hostname === "localhost" ||
         window.location.hostname === "127.0.0.1");
 
-    const clientId = isLocal
-      ? (process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ||
-        "274672652455-k2lhi691i2jhvfn7a8ss1365g6acvm8e.apps.googleusercontent.com")
-      : "274672652455-7rare3ft6a63dbou4bi5b6sctq9sr54b.apps.googleusercontent.com";
+    const clientId =
+      process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ||
+      (isLocal
+        ? process.env.LOCAL_GOOGLE_CLIENT_ID || ""
+        : process.env.HOSTED_GOOGLE_CLIENT_ID || "");
 
     const script = document.createElement("script");
     script.src = "https://accounts.google.com/gsi/client";

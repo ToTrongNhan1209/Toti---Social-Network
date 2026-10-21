@@ -36,40 +36,53 @@ export async function middleware(req: NextRequest) {
   }
 
   // ── 2. Rate Limiting by Route Category ───────────────────────────────────
-  let category: "public" | "sensitiveApi" | "adminAuth" = "public";
+  // Note: Only rate-limit API calls and mutating/POST requests. Never lock out normal HTML page visits.
+  const isHtmlPageGet = req.method === "GET" && !pathname.startsWith("/api/");
+  const isLoginRoute = pathname.startsWith("/admin/login");
 
-  if (pathname.startsWith("/api/admin/auth") || pathname === "/admin/login") {
-    category = "adminAuth";
-  } else if (
-    pathname.startsWith("/api/admin") ||
-    pathname.startsWith("/api/contact") ||
-    pathname.startsWith("/api/comments") ||
-    pathname.startsWith("/api/newsletter")
-  ) {
-    category = "sensitiveApi";
-  }
+  let rateCheck: ReturnType<typeof checkRateLimit> = {
+    allowed: true,
+    remaining: 999,
+    resetSeconds: 60,
+    isBlocked: false,
+    blockedUntilSeconds: 0,
+  };
 
-  const rateCheck = checkRateLimit(ip, category);
+  if (!isHtmlPageGet && !isLoginRoute) {
+    let category: "public" | "sensitiveApi" | "adminAuth" = "public";
 
-  if (!rateCheck.allowed) {
-    const retryAfter = rateCheck.blockedUntilSeconds || rateCheck.resetSeconds || 60;
-    return new NextResponse(
-      JSON.stringify({
-        success: false,
-        error: rateCheck.isBlocked
-          ? `Hệ thống tạm thời khóa IP ${ip} do phát hiện lưu lượng bất thường (DDoS Protection). Thử lại sau ${retryAfter} giây.`
-          : `Yêu cầu quá nhanh (Rate Limit). Vui lòng thử lại sau ${retryAfter} giây.`,
-        retryAfter,
-      }),
-      {
-        status: 429,
-        headers: {
-          "Content-Type": "application/json",
-          "Retry-After": String(retryAfter),
-          "X-DDoS-Protection": "Active",
-        },
-      }
-    );
+    if (pathname.startsWith("/api/admin/auth")) {
+      category = "adminAuth";
+    } else if (
+      pathname.startsWith("/api/contact") ||
+      pathname.startsWith("/api/comments") ||
+      pathname.startsWith("/api/newsletter")
+    ) {
+      category = "sensitiveApi";
+    }
+
+    rateCheck = checkRateLimit(ip, category);
+
+    if (!rateCheck.allowed) {
+      const retryAfter = rateCheck.blockedUntilSeconds || rateCheck.resetSeconds || 60;
+      return new NextResponse(
+        JSON.stringify({
+          success: false,
+          error: rateCheck.isBlocked
+            ? `Hệ thống tạm thời khóa IP ${ip} do phát hiện lưu lượng bất thường (DDoS Protection). Thử lại sau ${retryAfter} giây.`
+            : `Yêu cầu quá nhanh (Rate Limit). Vui lòng thử lại sau ${retryAfter} giây.`,
+          retryAfter,
+        }),
+        {
+          status: 429,
+          headers: {
+            "Content-Type": "application/json",
+            "Retry-After": String(retryAfter),
+            "X-DDoS-Protection": "Active",
+          },
+        }
+      );
+    }
   }
 
   // ── 3. Admin Authentication Guard ─────────────────────────────────────────

@@ -26,9 +26,9 @@ export async function GET(req: NextRequest) {
   const isLocal =
     req.nextUrl.hostname === "localhost" || req.nextUrl.hostname === "127.0.0.1";
   const clientId = isLocal
-    ? (process.env.LOCAL_GOOGLE_CLIENT_ID || process.env.GOOGLE_CLIENT_ID || "274672652455-k2lhi691i2jhvfn7a8ss1365g6acvm8e.apps.googleusercontent.com")
-    : (process.env.GOOGLE_CLIENT_ID || "274672652455-7rare3ft6a63dbou4bi5b6sctq9sr54b.apps.googleusercontent.com");
-  const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
+    ? (process.env.LOCAL_GOOGLE_CLIENT_ID || process.env.GOOGLE_CLIENT_ID || "")
+    : (process.env.HOSTED_GOOGLE_CLIENT_ID || process.env.GOOGLE_CLIENT_ID || "");
+  const clientSecret = process.env.GOOGLE_CLIENT_SECRET || "";
 
   if (!clientId || !clientSecret) {
     return NextResponse.redirect(
@@ -76,8 +76,13 @@ export async function GET(req: NextRequest) {
 
     const cleanEmail = googleUser.email.toLowerCase();
 
-    // 3. Check if email is in the authorized admin list
-    if (!isAuthorizedAdminEmail(cleanEmail)) {
+    // 3. Retrieve Staff Profile & Role Permissions
+    const { getStaffByEmail, getRoleById, updateStaff, isAuthorizedStaffEmail } = await import("@/lib/staff-store");
+    const isStaff = isAuthorizedStaffEmail(cleanEmail);
+    const isAdmin = isAuthorizedAdminEmail(cleanEmail);
+
+    // Check if email is in the authorized admin list or registered staff
+    if (!isStaff && !isAdmin) {
       return NextResponse.redirect(
         new URL(
           `/admin/login?error=${encodeURIComponent(
@@ -88,18 +93,62 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    // 4. Sign session token using HMAC-SHA256
+    const staff = getStaffByEmail(cleanEmail);
+
+    if (staff && staff.status === "locked") {
+      return NextResponse.redirect(
+        new URL(
+          `/admin/login?error=${encodeURIComponent(
+            `Tài khoản nhân viên (${cleanEmail}) đã bị tạm khóa. Vui lòng liên hệ Tô Trọng Nhân.`
+          )}`,
+          req.url
+        )
+      );
+    }
+
+    const role = staff ? getRoleById(staff.roleId) : null;
+    const roleName = role ? role.name : (cleanEmail === "totrongnhan1209@gmail.com" ? "Super Administrator" : "Quản Trị Viên");
+    const permissions = role
+      ? role.permissions
+      : [
+          "manage_staff",
+          "manage_services",
+          "manage_blog",
+          "manage_comments",
+          "view_analytics",
+          "manage_contacts",
+          "manage_settings",
+        ];
+
+    // Update last login timestamp if registered staff
+    if (staff) {
+      try {
+        const now = new Date();
+        const formattedTime = `${now.getHours().toString().padStart(2, "0")}:${now
+          .getMinutes()
+          .toString()
+          .padStart(2, "0")} - ${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`;
+        updateStaff(staff.id, { lastLoginAt: formattedTime });
+      } catch {
+        // Ignore
+      }
+    }
+
+    // 5. Sign session token with role & permissions using HMAC-SHA256
     const token = await signAdminToken({
       email: cleanEmail,
-      name: googleUser.name || "Tô Trọng Nhân",
+      name: staff?.name || googleUser.name || "Tô Trọng Nhân",
       avatar:
         googleUser.picture ||
+        staff?.avatar ||
         "/logo/final-avatar.png",
-      role: "Super Administrator",
+      role: roleName,
+      roleId: staff?.roleId || "super_admin",
+      permissions: permissions as any,
       authProvider: "google",
     });
 
-    // 5. Set session cookie and redirect to Admin panel
+    // 6. Set session cookie and redirect to Admin panel
     const response = NextResponse.redirect(new URL("/admin", req.url));
     response.cookies.set({
       name: ADMIN_COOKIE_NAME,

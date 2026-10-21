@@ -1,0 +1,56 @@
+[
+  {
+    "id": "super_admin",
+    "name": "Super Administrator",
+    "description": "Toàn quyền quản trị cao nhất hệ thống, xem và thay đổi toàn bộ chức năng",
+    "color": "#237A60",
+    "isSystem": true,
+    "permissions": [
+      "manage_staff",
+      "manage_services",
+      "manage_blog",
+      "manage_comments",
+      "view_analytics",
+      "manage_contacts",
+      "manage_settings"
+    ],
+    "createdAt": "2026-01-01"
+  },
+  {
+    "id": "service_manager",
+    "name": "Quản Lý Dịch Vụ & Bảng Giá",
+    "description": "Quản lý bảng giá dịch vụ mạng xã hội, xử lý đơn hàng và xem thống kê",
+    "color": "#D97706",
+    "isSystem": true,
+    "permissions": [
+      "manage_services",
+      "view_analytics",
+      "manage_contacts"
+    ],
+    "createdAt": "2026-01-01"
+  },
+  {
+    "id": "content_manager",
+    "name": "Quản Lý Nội Dung & Blog",
+    "description": "Soạn thảo bài viết mới, chỉnh sửa nội dung bài đăng và duyệt bình luận",
+    "color": "#2563EB",
+    "isSystem": true,
+    "permissions": [
+      "manage_blog",
+      "manage_comments"
+    ],
+    "createdAt": "2026-01-01"
+  },
+  {
+    "id": "support_staff",
+    "name": "Nhân Viên Hỗ Trợ & CSKH",
+    "description": "Xem danh sách khách hàng liên hệ và hỗ trợ giải đáp thắc mắc",
+    "color": "#7C3AED",
+    "isSystem": true,
+    "permissions": [
+      "manage_contacts",
+      "manage_comments"
+    ],
+    "createdAt": "2026-01-01"
+  }
+]

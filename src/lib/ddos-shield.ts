@@ -32,23 +32,23 @@ export interface ShieldConfig {
 }
 
 const DEFAULT_CONFIGS: Record<string, ShieldConfig> = {
-  // General website traffic: 120 req / minute
+  // General website traffic: 300 req / minute
   public: {
     windowMs: 60_000,
-    maxRequests: 120,
-    blockDurationMs: 5 * 60_000, // 5 min ban
+    maxRequests: 300,
+    blockDurationMs: 60_000, // 1 min ban
   },
-  // Sensitive APIs & Forms: 15 req / minute
+  // Sensitive APIs & Forms: 30 req / minute
   sensitiveApi: {
     windowMs: 60_000,
-    maxRequests: 15,
-    blockDurationMs: 10 * 60_000, // 10 min ban
+    maxRequests: 30,
+    blockDurationMs: 60_000, // 1 min ban
   },
-  // Admin Login: 6 attempts / 5 minutes
+  // Admin Login: 30 attempts / minute
   adminAuth: {
-    windowMs: 300_000,
-    maxRequests: 6,
-    blockDurationMs: 15 * 60_000, // 15 min ban
+    windowMs: 60_000,
+    maxRequests: 30,
+    blockDurationMs: 60_000, // 1 min ban
   },
 };
 
