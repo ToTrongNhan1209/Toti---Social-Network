@@ -136,32 +136,6 @@ const DEFAULT_STAFF: StaffMember[] = [
     createdAt: "2026-01-01",
     lastLoginAt: "Vừa truy cập",
   },
-  {
-    id: "staff-quan-ly-dich-vu",
-    name: "Quản Trị Viên Dịch Vụ",
-    email: "totrongnhan.vn@gmail.com",
-    phone: "0988.765.432",
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
-    roleId: "service_manager",
-    status: "active",
-    isPermanent: false,
-    notes: "Phụ trách điều phối các gói dịch vụ MXH Facebook, TikTok & Instagram.",
-    createdAt: "2026-02-15",
-    lastLoginAt: "Hôm nay lúc 09:15",
-  },
-  {
-    id: "staff-bien-tap-vien",
-    name: "Biên Tập Viên Tin Tức",
-    email: "totro@gmail.com",
-    phone: "0912.333.888",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
-    roleId: "content_manager",
-    status: "active",
-    isPermanent: false,
-    notes: "Phụ trách viết bài chia sẻ mẹo công nghệ & tối ưu SEO website.",
-    createdAt: "2026-03-01",
-    lastLoginAt: "Hôm qua lúc 16:40",
-  },
 ];
 
 // In-memory cache

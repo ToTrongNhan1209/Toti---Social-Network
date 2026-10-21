@@ -18,14 +18,9 @@ export interface AdminSession {
 export const ADMIN_COOKIE_NAME = "totrongnhan_admin_session";
 const SESSION_DURATION_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
 
-// Default allowed admin emails (can be overridden by process.env.ADMIN_ALLOWED_EMAILS)
+// Default allowed master admin email
 const DEFAULT_ALLOWED_EMAILS = [
   "totrongnhan1209@gmail.com",
-  "totrongnhan@gmail.com",
-  "totrongnhan.vn@gmail.com",
-  "admin@totrongnhan.vn",
-  "totro@gmail.com",
-  "braynhan123@gmail.com",
 ];
 
 // Fallback secret for local development
@@ -39,16 +34,17 @@ const SECRET_KEY =
 export function isAuthorizedAdminEmail(email: string): boolean {
   const cleanEmail = email.trim().toLowerCase();
 
-  // Check environment variable overrides and hardcoded master list
-  const envEmails = process.env.ADMIN_ALLOWED_EMAILS
-    ? process.env.ADMIN_ALLOWED_EMAILS.split(",").map((e) => e.trim().toLowerCase())
-    : [];
+  // If environment variable ADMIN_ALLOWED_EMAILS is set, use it strictly
+  if (process.env.ADMIN_ALLOWED_EMAILS) {
+    const envEmails = process.env.ADMIN_ALLOWED_EMAILS
+      .split(",")
+      .map((e) => e.trim().toLowerCase())
+      .filter(Boolean);
+    return envEmails.includes(cleanEmail);
+  }
 
-  const allAllowed = [...DEFAULT_ALLOWED_EMAILS, ...envEmails].map((e) =>
-    e.toLowerCase()
-  );
-
-  return allAllowed.includes(cleanEmail) || cleanEmail.endsWith("@totrongnhan.vn");
+  // Fallback strictly to default master admin email
+  return DEFAULT_ALLOWED_EMAILS.includes(cleanEmail);
 }
 
 /**

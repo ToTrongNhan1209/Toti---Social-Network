@@ -85,25 +85,29 @@ export async function POST(req: NextRequest) {
 
     // Verify authorized admin email whitelist or staff record
     if (!isStaff && !isAdmin) {
-      return NextResponse.json(
+      const res = NextResponse.json(
         {
           success: false,
-          message: `Tài khoản Google (${cleanEmail}) không có quyền quản trị hệ thống. Vui lòng liên hệ Tô Trọng Nhân.`,
+          message: `Tài khoản Google (${cleanEmail}) không có quyền quản trị hệ thống. Chỉ tài khoản trong danh sách whitelist mới được phép đăng nhập.`,
         },
         { status: 403 }
       );
+      res.cookies.delete(ADMIN_COOKIE_NAME);
+      return res;
     }
 
     const staff = getStaffByEmail(cleanEmail);
 
     if (staff && staff.status === "locked") {
-      return NextResponse.json(
+      const res = NextResponse.json(
         {
           success: false,
           message: `Tài khoản nhân viên (${cleanEmail}) đã bị tạm khóa quyền truy cập. Vui lòng liên hệ Tô Trọng Nhân.`,
         },
         { status: 403 }
       );
+      res.cookies.delete(ADMIN_COOKIE_NAME);
+      return res;
     }
 
     const role = staff ? getRoleById(staff.roleId) : null;

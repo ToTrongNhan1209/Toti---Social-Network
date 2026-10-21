@@ -61,8 +61,14 @@ function LoginFormContent() {
   const [honeypot, setHoneypot] = useState("");
   const [gsiLoaded, setGsiLoaded] = useState(false);
 
-  // Check if already logged in
+  // Check if already logged in (only if no error occurred)
   useEffect(() => {
+    if (urlError) {
+      // Clear any stale session cookies if an error was reported
+      fetch("/api/admin/auth/logout", { method: "POST" }).catch(() => {});
+      return;
+    }
+
     fetch("/api/admin/auth/me")
       .then((res) => res.json())
       .then((data) => {
@@ -71,7 +77,7 @@ function LoginFormContent() {
         }
       })
       .catch(() => {});
-  }, [router, from]);
+  }, [router, from, urlError]);
 
   const handleGoogleCredentialLogin = useCallback(
     async (credential: string) => {

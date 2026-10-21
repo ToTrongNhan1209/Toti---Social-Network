@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { ADMIN_COOKIE_NAME } from "@/lib/auth";
 
 /**
  * GET /api/admin/auth/google
@@ -42,5 +43,7 @@ export async function GET(req: NextRequest) {
   googleAuthUrl.searchParams.set("access_type", "offline");
   googleAuthUrl.searchParams.set("prompt", "select_account");
 
-  return NextResponse.redirect(googleAuthUrl.toString());
+  const response = NextResponse.redirect(googleAuthUrl.toString());
+  response.cookies.delete(ADMIN_COOKIE_NAME);
+  return response;
 }

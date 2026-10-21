@@ -93,20 +93,22 @@ export async function GET(req: NextRequest) {
 
     // Check if email is in the authorized admin list or registered staff
     if (!isStaff && !isAdmin) {
-      return NextResponse.redirect(
+      const res = NextResponse.redirect(
         new URL(
           `/admin/login?error=${encodeURIComponent(
-            `Tài khoản Google (${cleanEmail}) không có quyền quản trị hệ thống. Vui lòng liên hệ Tô Trọng Nhân.`
+            `Tài khoản Google (${cleanEmail}) không có quyền quản trị hệ thống. Chỉ tài khoản trong danh sách whitelist mới được phép đăng nhập.`
           )}`,
           req.url
         )
       );
+      res.cookies.delete(ADMIN_COOKIE_NAME);
+      return res;
     }
 
     const staff = getStaffByEmail(cleanEmail);
 
     if (staff && staff.status === "locked") {
-      return NextResponse.redirect(
+      const res = NextResponse.redirect(
         new URL(
           `/admin/login?error=${encodeURIComponent(
             `Tài khoản nhân viên (${cleanEmail}) đã bị tạm khóa. Vui lòng liên hệ Tô Trọng Nhân.`
@@ -114,6 +116,8 @@ export async function GET(req: NextRequest) {
           req.url
         )
       );
+      res.cookies.delete(ADMIN_COOKIE_NAME);
+      return res;
     }
 
     const role = staff ? getRoleById(staff.roleId) : null;

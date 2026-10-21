@@ -989,7 +989,7 @@ export default function AdminDashboardPage() {
                     border: "1.5px solid #B9DCCD",
                     cursor: "pointer",
                   }}
-                  title="Hồ sơ quản trị viên (Bấm để xem)"
+                  title={`Đang đăng nhập: ${adminUser.email} • Bấm để xem hồ sơ`}
                 >
                   <img
                     src={adminUser.avatar}
@@ -999,17 +999,28 @@ export default function AdminDashboardPage() {
                       (e.target as HTMLImageElement).src = "/logo/final-avatar.png";
                     }}
                   />
-                  <span
+                  <div
                     style={{
-                      fontSize: "0.82rem",
-                      fontWeight: 700,
-                      color: "#183B32",
                       display: "none",
+                      flexDirection: "column",
+                      lineHeight: 1.2,
+                      textAlign: "left",
                     }}
-                    className="sm:inline"
+                    className="sm:flex"
                   >
-                    {adminUser.name}
-                  </span>
+                    <span
+                      style={{
+                        fontSize: "0.82rem",
+                        fontWeight: 700,
+                        color: "#183B32",
+                      }}
+                    >
+                      {adminUser.name}
+                    </span>
+                    <span style={{ fontSize: "0.72rem", color: "#607F74" }}>
+                      {adminUser.email}
+                    </span>
+                  </div>
                 </div>
               )}
             </div>

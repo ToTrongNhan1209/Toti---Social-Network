@@ -12,6 +12,6 @@
   },
   "vars": {
     "ADMIN_AUTH_SECRET": "totrongnhan_super_secure_admin_jwt_secret_mint_2026",
-    "ADMIN_ALLOWED_EMAILS": "totrongnhan1209@gmail.com,totrongnhan@gmail.com,admin@totrongnhan.vn"
+    "ADMIN_ALLOWED_EMAILS": "totrongnhan1209@gmail.com"
   }
 }
