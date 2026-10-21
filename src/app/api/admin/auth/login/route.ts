@@ -5,48 +5,101 @@ import {
   ADMIN_COOKIE_NAME,
 } from "@/lib/auth";
 
+/**
+ * POST /api/admin/auth/login
+ * Strictly verifies the Google ID Token returned by Google Identity Services.
+ * Rejects any unverified, plain email, or mock logins.
+ */
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { email, name, avatar, provider = "google" } = body;
+    const { credential } = body;
 
-    if (!email || !email.trim()) {
+    // Reject any request without real Google credential token
+    if (!credential || typeof credential !== "string") {
       return NextResponse.json(
-        { success: false, message: "Email không được để trống" },
+        {
+          success: false,
+          message:
+            "Chỉ cho phép đăng nhập bằng tài khoản Google thật. Không nhận được Google Identity Token.",
+        },
         { status: 400 }
       );
     }
 
-    const cleanEmail = email.trim().toLowerCase();
+    // Verify token directly with Google's official tokeninfo endpoint
+    const tokenInfoRes = await fetch(
+      `https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(credential)}`,
+      { cache: "no-store" }
+    );
 
-    // Verify authorized admin email
-    if (!isAuthorizedAdminEmail(cleanEmail)) {
+    if (!tokenInfoRes.ok) {
       return NextResponse.json(
         {
           success: false,
-          message: `Tài khoản Google (${cleanEmail}) không có quyền truy cập quản trị. Vui lòng liên hệ Tô Trọng Nhân.`,
+          message:
+            "Mã xác thực Google không hợp lệ hoặc đã hết hạn. Vui lòng đăng nhập lại qua Google.",
+        },
+        { status: 401 }
+      );
+    }
+
+    const tokenInfo = await tokenInfoRes.json();
+
+    // Check email verification status
+    if (!tokenInfo.email || tokenInfo.email_verified === "false") {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Tài khoản Google chưa được xác thực email chính chủ.",
         },
         { status: 403 }
       );
     }
 
-    const adminName = name?.trim() || "Tô Trọng Nhân";
-    const adminAvatar =
-      avatar?.trim() ||
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=96&h=96&fit=crop&crop=face";
+    // Validate audience if client ID is configured
+    const expectedClientId =
+      process.env.GOOGLE_CLIENT_ID || process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+    if (expectedClientId && tokenInfo.aud && tokenInfo.aud !== expectedClientId) {
+      console.warn("Google token aud mismatch:", tokenInfo.aud, expectedClientId);
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Mã Google ID không khớp với ứng dụng của bạn.",
+        },
+        { status: 403 }
+      );
+    }
 
-    // Generate signed session token
+    const cleanEmail = tokenInfo.email.trim().toLowerCase();
+
+    // Verify authorized admin email whitelist
+    if (!isAuthorizedAdminEmail(cleanEmail)) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: `Tài khoản Google (${cleanEmail}) không có quyền quản trị hệ thống. Vui lòng liên hệ Tô Trọng Nhân.`,
+        },
+        { status: 403 }
+      );
+    }
+
+    const adminName = tokenInfo.name?.trim() || "Tô Trọng Nhân";
+    const adminAvatar =
+      tokenInfo.picture?.trim() || "/logo/final-avatar.png";
+
+    // Generate signed session token with HMAC-SHA256
     const token = await signAdminToken({
       email: cleanEmail,
       name: adminName,
       avatar: adminAvatar,
       role: "Super Administrator",
-      authProvider: provider === "demo" ? "demo" : "google",
+      authProvider: "google",
     });
 
     const response = NextResponse.json({
       success: true,
-      message: "Đăng nhập Google thành công! Đang chuyển hướng...",
+      message: `Đăng nhập Google thành công! Xin chào ${adminName}.`,
       admin: {
         email: cleanEmail,
         name: adminName,
@@ -67,10 +120,9 @@ export async function POST(req: NextRequest) {
 
     return response;
   } catch (err) {
-    console.error("Admin login API error:", err);
-    const errMsg = (err as Error)?.message || "Lỗi hệ thống khi xác thực tài khoản Google";
+    console.error("Admin Google login verification error:", err);
     return NextResponse.json(
-      { success: false, message: `Lỗi hệ thống: ${errMsg}` },
+      { success: false, message: "Lỗi kết nối máy chủ Google khi xác thực tài khoản." },
       { status: 500 }
     );
   }

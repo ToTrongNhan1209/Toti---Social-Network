@@ -12,6 +12,8 @@
   },
   "vars": {
     "ADMIN_AUTH_SECRET": "totrongnhan_super_secure_admin_jwt_secret_mint_2026",
-    "ADMIN_ALLOWED_EMAILS": "totrongnhan1209@gmail.com,totrongnhan@gmail.com,admin@totrongnhan.vn"
+    "ADMIN_ALLOWED_EMAILS": "totrongnhan1209@gmail.com,totrongnhan@gmail.com,admin@totrongnhan.vn",
+    "GOOGLE_CLIENT_ID": "274672652455-k2lhi691i2jhvfn7a8ss1365g6acvm8e.apps.googleusercontent.com",
+    "NEXT_PUBLIC_GOOGLE_CLIENT_ID": "274672652455-k2lhi691i2jhvfn7a8ss1365g6acvm8e.apps.googleusercontent.com"
   }
 }

@@ -10,11 +10,9 @@ import Link from "next/link";
 import {
   ShieldCheck,
   Lock,
-  ArrowRight,
   AlertCircle,
   CheckCircle2,
   ArrowLeft,
-  Zap,
   ExternalLink,
   HelpCircle,
   X,
@@ -45,22 +43,6 @@ function GoogleIcon({ size = 20 }: { size?: number }) {
   );
 }
 
-// Helper to decode Google credential JWT ID token
-function decodeGoogleJwt(token: string): { email?: string; name?: string; picture?: string } | null {
-  try {
-    const base64Url = token.split(".")[1];
-    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-    const jsonPayload = decodeURIComponent(
-      atob(base64)
-        .split("")
-        .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
-        .join("")
-    );
-    return JSON.parse(jsonPayload);
-  } catch {
-    return null;
-  }
-}
 
 function LoginFormContent() {
   const router = useRouter();
@@ -70,19 +52,17 @@ function LoginFormContent() {
   const urlError = searchParams.get("error");
   const initialError =
     urlError === "missing_credentials"
-      ? "Chưa cấu hình GOOGLE_CLIENT_ID & GOOGLE_CLIENT_SECRET trong file .env.local để kết nối với Google thật. Xem hướng dẫn bên dưới hoặc dùng nút Đăng Nhập Nhanh."
+      ? "Chưa cấu hình GOOGLE_CLIENT_ID & GOOGLE_CLIENT_SECRET trong file .env.local để kết nối với Google thật. Xem hướng dẫn bên dưới."
       : urlError
       ? decodeURIComponent(urlError)
       : null;
 
-  const [email, setEmail] = useState("totrongnhan1209@gmail.com");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(initialError);
   const [success, setSuccess] = useState<string | null>(null);
   const [honeypot, setHoneypot] = useState("");
   const [gsiLoaded, setGsiLoaded] = useState(false);
   const [showSetupGuide, setShowSetupGuide] = useState(urlError === "missing_credentials");
-
 
   // Check if already logged in
   useEffect(() => {
@@ -96,12 +76,8 @@ function LoginFormContent() {
       .catch(() => {});
   }, [router, from]);
 
-  const handleLogin = useCallback(
-    async (
-      targetEmail: string,
-      name: string = "Tô Trọng Nhân",
-      avatarUrl?: string
-    ) => {
+  const handleGoogleCredentialLogin = useCallback(
+    async (credential: string) => {
       if (honeypot) return; // Silent reject bot
 
       setError(null);
@@ -111,28 +87,21 @@ function LoginFormContent() {
         const res = await fetch("/api/admin/auth/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: targetEmail,
-            name,
-            avatar:
-              avatarUrl ||
-              "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=96&h=96&fit=crop&crop=face",
-            provider: "google",
-          }),
+          body: JSON.stringify({ credential }),
         });
 
         const data = await res.json();
 
         if (data.success) {
-          setSuccess("Đăng nhập thành công! Đang chuyển đến trang quản trị...");
+          setSuccess(data.message || "Đăng nhập Google thành công! Đang chuyển đến trang quản trị...");
           setTimeout(() => {
             router.push(from);
           }, 600);
         } else {
-          setError(data.message || "Đăng nhập thất bại.");
+          setError(data.message || "Đăng nhập Google thất bại.");
         }
       } catch {
-        setError("Lỗi kết nối máy chủ hoặc tường lửa chặn yêu cầu.");
+        setError("Lỗi kết nối máy chủ khi xác thực tài khoản Google.");
       } finally {
         setLoading(false);
       }
@@ -142,30 +111,35 @@ function LoginFormContent() {
 
   // Initialize official Google Identity Services SDK
   useEffect(() => {
+    const clientId =
+      process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ||
+      "274672652455-k2lhi691i2jhvfn7a8ss1365g6acvm8e.apps.googleusercontent.com";
+
     const script = document.createElement("script");
     script.src = "https://accounts.google.com/gsi/client";
     script.async = true;
     script.defer = true;
     script.onload = () => {
       setGsiLoaded(true);
-      const google = (window as unknown as { google?: { accounts?: { id?: { initialize: (config: object) => void; renderButton: (el: HTMLElement, config: object) => void } } } }).google;
+      const google = (window as unknown as {
+        google?: {
+          accounts?: {
+            id?: {
+              initialize: (config: object) => void;
+              renderButton: (el: HTMLElement, config: object) => void;
+            };
+          };
+        };
+      }).google;
+
       if (google?.accounts?.id) {
         google.accounts.id.initialize({
-          client_id:
-            process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ||
-            "1028392182910-totrongnhan.apps.googleusercontent.com",
+          client_id: clientId,
           callback: (response: { credential?: string }) => {
             if (response.credential) {
-              const decoded = decodeGoogleJwt(response.credential);
-              if (decoded?.email) {
-                handleLogin(
-                  decoded.email,
-                  decoded.name || "Tô Trọng Nhân",
-                  decoded.picture
-                );
-              } else {
-                setError("Không thể giải mã phản hồi Google Identity.");
-              }
+              handleGoogleCredentialLogin(response.credential);
+            } else {
+              setError("Không nhận được token xác thực từ Google.");
             }
           },
         });
@@ -192,7 +166,7 @@ function LoginFormContent() {
         // Ignore if already unmounted
       }
     };
-  }, [handleLogin]);
+  }, [handleGoogleCredentialLogin]);
 
   return (
     <div
@@ -318,6 +292,28 @@ function LoginFormContent() {
           </div>
         )}
 
+        {/* Loading Indicator */}
+        {loading && (
+          <div
+            style={{
+              padding: "0.85rem 1rem",
+              borderRadius: "12px",
+              background: "#F4FBF8",
+              border: "1px solid #B9DCCD",
+              color: "#237A60",
+              fontSize: "0.86rem",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "0.6rem",
+              marginBottom: "1.25rem",
+              fontWeight: 700,
+            }}
+          >
+            <span>⏳ Đang xác thực tài khoản Google...</span>
+          </div>
+        )}
+
         {/* Hidden Honeypot for Anti-Bot */}
         <input
           type="text"
@@ -368,37 +364,8 @@ function LoginFormContent() {
           <span>Đăng nhập với Google Thật (OAuth 2.0)</span>
         </a>
 
-        {/* Quick Bypass Login Button */}
-        <button
-          type="button"
-          disabled={loading}
-          onClick={() => handleLogin("totrongnhan1209@gmail.com", "Tô Trọng Nhân")}
-          style={{
-            width: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "0.6rem",
-            padding: "0.75rem 1.25rem",
-            borderRadius: "12px",
-            border: "1px solid #B9DCCD",
-            background: "#F4FBF8",
-            color: "#237A60",
-            fontSize: "0.88rem",
-            fontWeight: 700,
-            cursor: loading ? "not-allowed" : "pointer",
-            transition: "all 0.2s ease",
-            marginBottom: "0.5rem",
-            opacity: loading ? 0.7 : 1,
-          }}
-          title="Đăng nhập ngay với tài khoản Tô Trọng Nhân không cần chờ cấu hình Google Cloud"
-        >
-          <Zap size={16} />
-          {loading ? "Đang xác thực phiên..." : "Đăng nhập nhanh an toàn (Tô Trọng Nhân)"}
-        </button>
-
         {/* Setup Guide Link */}
-        <div style={{ textAlign: "center", marginBottom: "1.25rem" }}>
+        <div style={{ textAlign: "center", marginTop: "0.25rem", marginBottom: "1.25rem" }}>
           <button
             type="button"
             onClick={() => setShowSetupGuide((prev) => !prev)}
@@ -416,7 +383,7 @@ function LoginFormContent() {
             }}
           >
             <HelpCircle size={13} />
-            {showSetupGuide ? "Đóng hướng dẫn cấu hình Google" : "Xem cách lấy Google Client ID thật (2 phút)"}
+            {showSetupGuide ? "Đóng hướng dẫn cấu hình" : "Xem cách cấu hình Google OAuth 2.0 (Google Cloud)"}
           </button>
         </div>
 
@@ -457,7 +424,7 @@ function LoginFormContent() {
               </button>
             </div>
             <p style={{ margin: "0 0 0.6rem", color: "#48665B" }}>
-              Để Google chuyển hướng đến popup đăng nhập tài khoản Gmail thật (<strong>accounts.google.com</strong>), bạn chỉ cần tạo Client ID hoàn toàn miễn phí:
+              Để đăng nhập bằng tài khoản Gmail thật (<strong>accounts.google.com</strong>), bạn chỉ cần tạo Client ID hoàn toàn miễn phí:
             </p>
             <ol style={{ margin: "0 0 0.8rem", paddingLeft: "1.2rem", color: "#183B32" }}>
               <li>
@@ -475,7 +442,7 @@ function LoginFormContent() {
               <li>Thêm <strong>Authorized redirect URIs</strong>: <code style={{ background: "#E8F8F1", padding: "0.1rem 0.35rem", borderRadius: "4px" }}>http://localhost:3000/api/admin/auth/google/callback</code></li>
               <li>Sao chép <strong>Client ID</strong> và <strong>Client Secret</strong> dán vào file <code style={{ background: "#E8F8F1", padding: "0.1rem 0.35rem", borderRadius: "4px" }}>.env.local</code> ở thư mục gốc dự án.</li>
             </ol>
-            <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+            <div>
               <a
                 href="/api/admin/auth/google"
                 style={{
@@ -493,138 +460,9 @@ function LoginFormContent() {
               >
                 Thử lại Google thật ngay
               </a>
-              <button
-                type="button"
-                onClick={() => handleLogin("totrongnhan1209@gmail.com", "Tô Trọng Nhân")}
-                style={{
-                  padding: "0.5rem 1rem",
-                  borderRadius: "8px",
-                  border: "1px solid #B9DCCD",
-                  background: "#FFFFFF",
-                  color: "#183B32",
-                  fontWeight: 600,
-                  fontSize: "0.8rem",
-                  cursor: "pointer",
-                }}
-              >
-                Đăng nhập nhanh bỏ qua
-              </button>
             </div>
           </div>
         )}
-
-        {/* Divider */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            margin: "1.5rem 0",
-            color: "#8EABA1",
-            fontSize: "0.8rem",
-            fontWeight: 600,
-          }}
-        >
-          <div style={{ flex: 1, height: 1, background: "#D7EAE1" }} />
-          <span style={{ padding: "0 0.8rem", textTransform: "uppercase" }}>Hoặc tài khoản khác</span>
-          <div style={{ flex: 1, height: 1, background: "#D7EAE1" }} />
-        </div>
-
-        {/* Custom Admin Google Email Input */}
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleLogin(email, email.split("@")[0]);
-          }}
-        >
-          <div style={{ marginBottom: "1.25rem" }}>
-            <label
-              style={{
-                display: "block",
-                fontSize: "0.85rem",
-                fontWeight: 700,
-                color: "#183B32",
-                marginBottom: "0.4rem",
-              }}
-            >
-              Email Google được ủy quyền quản trị
-            </label>
-            <input
-              type="email"
-              required
-              placeholder="ví dụ: totrongnhan1209@gmail.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              style={{
-                width: "100%",
-                padding: "0.75rem 1rem",
-                borderRadius: "10px",
-                border: "1.5px solid #B9DCCD",
-                background: "#F4FBF8",
-                fontSize: "0.92rem",
-                color: "#183B32",
-                outline: "none",
-              }}
-            />
-            <div style={{ display: "flex", gap: "0.4rem", marginTop: "0.5rem", flexWrap: "wrap" }}>
-              <span style={{ fontSize: "0.75rem", color: "#607F74", alignSelf: "center" }}>Gợi ý:</span>
-              <button
-                type="button"
-                onClick={() => setEmail("totrongnhan1209@gmail.com")}
-                style={{
-                  fontSize: "0.75rem",
-                  padding: "0.2rem 0.5rem",
-                  borderRadius: "6px",
-                  border: "1px solid #B9DCCD",
-                  background: email === "totrongnhan1209@gmail.com" ? "#E8F8F1" : "#FFFFFF",
-                  color: "#237A60",
-                  cursor: "pointer",
-                  fontWeight: 600,
-                }}
-              >
-                totrongnhan1209@gmail.com
-              </button>
-              <button
-                type="button"
-                onClick={() => setEmail("admin@totrongnhan.vn")}
-                style={{
-                  fontSize: "0.75rem",
-                  padding: "0.2rem 0.5rem",
-                  borderRadius: "6px",
-                  border: "1px solid #B9DCCD",
-                  background: email === "admin@totrongnhan.vn" ? "#E8F8F1" : "#FFFFFF",
-                  color: "#237A60",
-                  cursor: "pointer",
-                  fontWeight: 600,
-                }}
-              >
-                admin@totrongnhan.vn
-              </button>
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            style={{
-              width: "100%",
-              padding: "0.85rem 1.25rem",
-              borderRadius: "10px",
-              border: "none",
-              background: "linear-gradient(135deg, #237A60 0%, #183B32 100%)",
-              color: "#FFFFFF",
-              fontSize: "0.95rem",
-              fontWeight: 700,
-              cursor: loading ? "not-allowed" : "pointer",
-              boxShadow: "0 4px 14px rgba(35, 122, 96, 0.25)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "0.5rem",
-            }}
-          >
-            {loading ? "Đang xử lý..." : "Xác Thực & Vào Quản Trị"} <ArrowRight size={16} />
-          </button>
-        </form>
 
         {/* Security Notice Box */}
         <div
