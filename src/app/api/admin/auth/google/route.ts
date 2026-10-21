@@ -15,9 +15,12 @@ export async function GET(req: NextRequest) {
     host.includes("127.0.0.1") ||
     req.nextUrl.hostname === "localhost" ||
     req.nextUrl.hostname === "127.0.0.1";
-  const clientId = isLocal
-    ? (process.env.LOCAL_GOOGLE_CLIENT_ID || process.env.GOOGLE_CLIENT_ID || "")
-    : (process.env.HOSTED_GOOGLE_CLIENT_ID || process.env.GOOGLE_CLIENT_ID || "");
+  const clientId =
+    process.env.GOOGLE_CLIENT_ID ||
+    process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ||
+    (isLocal
+      ? process.env.LOCAL_GOOGLE_CLIENT_ID || ""
+      : process.env.HOSTED_GOOGLE_CLIENT_ID || "");
   const clientSecret = process.env.GOOGLE_CLIENT_SECRET || "";
   const protocol = isLocal ? "http" : "https";
   const siteUrl = `${protocol}://${host}`;
