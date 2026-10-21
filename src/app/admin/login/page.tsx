@@ -230,39 +230,9 @@ function LoginFormContent() {
           >
             Đăng Nhập Quản Trị Hệ Thống
           </h1>
-          <p style={{ color: "#607F74", fontSize: "0.88rem", margin: "0 0 1rem 0" }}>
+          <p style={{ color: "#607F74", fontSize: "0.88rem", margin: 0 }}>
             Tô Trọng Nhân (Toti) • Quản lý dịch vụ &amp; nội dung bài viết
           </p>
-
-          {/* System Online Status Pill */}
-          <div>
-            <span
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.45rem",
-                padding: "0.35rem 0.85rem",
-                borderRadius: "999px",
-                background: "#F0FDF4",
-                border: "1px solid #BBF7D0",
-                fontSize: "0.8rem",
-                fontWeight: 600,
-                color: "#166534",
-              }}
-            >
-              <span
-                style={{
-                  width: 7,
-                  height: 7,
-                  borderRadius: "50%",
-                  background: "#22C55E",
-                  boxShadow: "0 0 6px #22C55E",
-                  display: "inline-block",
-                }}
-              />
-              Hệ Thống Quản Trị Trực Tuyến
-            </span>
-          </div>
         </div>
 
         {/* Error / Success Alerts */}
