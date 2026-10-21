@@ -559,7 +559,23 @@ input::placeholder, textarea::placeholder {
   animation: float-orb-2 12s ease-in-out infinite;
 }
 
-/* 3. Badge floating & gentle bounce */
+/* 3. Slide Up Fade Entrance */
+@keyframes slideUpFade {
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUpFade 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* 4. Badge floating & gentle bounce */
 @keyframes badge-float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-5px); }
@@ -762,6 +778,90 @@ img, svg, video, canvas {
 @media (max-width: 767px) {
   .cms-weather-topbar {
     display: none !important;
+  }
+}
+
+/* ── Scroll-Reveal Entrance Animations ─────────────────────────────────── */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-revealed {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.94) translateY(20px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-scale.is-revealed {
+  opacity: 1 !important;
+  transform: scale(1) translateY(0) !important;
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-36px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-left.is-revealed {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(36px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-right.is-revealed {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
+.delay-75  { transition-delay: 75ms !important; }
+.delay-100 { transition-delay: 100ms !important; }
+.delay-150 { transition-delay: 150ms !important; }
+.delay-200 { transition-delay: 200ms !important; }
+.delay-300 { transition-delay: 300ms !important; }
+.delay-400 { transition-delay: 400ms !important; }
+.delay-500 { transition-delay: 500ms !important; }
+
+/* ── Floating Island Header Styles ─────────────────────────────────────── */
+.floating-island-navbar {
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.floating-island-navbar.is-floating {
+  top: 14px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: calc(100% - 2rem) !important;
+  max-width: 1260px !important;
+  border-radius: 999px !important;
+  border: 1.5px solid rgba(166, 228, 209, 0.75) !important;
+  background: rgba(255, 255, 255, 0.92) !important;
+  box-shadow: 0 16px 40px -8px rgba(24, 59, 50, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.8) inset !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+}
+
+@media (max-width: 768px) {
+  .floating-island-navbar.is-floating {
+    top: 10px !important;
+    width: calc(100% - 1.25rem) !important;
+    border-radius: 20px !important;
   }
 }
 

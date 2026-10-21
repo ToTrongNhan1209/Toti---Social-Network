@@ -13,6 +13,7 @@ import Footer from "@/components/layout/Footer";
 import FloatingActions from "@/components/ui/FloatingActions";
 import FloatingParticles from "@/components/ui/FloatingParticles";
 import AiChatbot from "@/components/ui/AiChatbot";
+import ScrollRevealObserver from "@/components/ui/ScrollRevealObserver";
 
 export default function PublicLayoutShell({
   children,
@@ -32,6 +33,7 @@ export default function PublicLayoutShell({
 
   return (
     <>
+      <ScrollRevealObserver />
       <FloatingParticles fixed={true} count={15} />
       <Navbar />
       <main className="flex-1">{children}</main>

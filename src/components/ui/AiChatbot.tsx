@@ -63,6 +63,19 @@ export default function AiChatbot() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  // Listen for open-ai-chatbot event from navbar / header
+  useEffect(() => {
+    const handleOpenEvent = () => {
+      setIsOpen(true);
+      setIsMinimized(false);
+      setHasUnread(false);
+    };
+    window.addEventListener("open-ai-chatbot", handleOpenEvent);
+    return () => {
+      window.removeEventListener("open-ai-chatbot", handleOpenEvent);
+    };
+  }, []);
+
   useEffect(() => {
     if (isOpen && !isMinimized) {
       scrollToBottom();
