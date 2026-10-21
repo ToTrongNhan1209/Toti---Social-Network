@@ -58,10 +58,15 @@ export async function POST(req: NextRequest) {
     }
 
     // Validate audience if client ID is configured
-    const expectedClientId =
-      process.env.GOOGLE_CLIENT_ID || process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-    if (expectedClientId && tokenInfo.aud && tokenInfo.aud !== expectedClientId) {
-      console.warn("Google token aud mismatch:", tokenInfo.aud, expectedClientId);
+    const validClientIds = [
+      "274672652455-k2lhi691i2jhvfn7a8ss1365g6acvm8e.apps.googleusercontent.com",
+      "274672652455-7rare3ft6a63dbou4bi5b6sctq9sr54b.apps.googleusercontent.com",
+      process.env.GOOGLE_CLIENT_ID,
+      process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+    ].filter(Boolean);
+
+    if (tokenInfo.aud && !validClientIds.includes(tokenInfo.aud)) {
+      console.warn("Google token aud mismatch:", tokenInfo.aud, validClientIds);
       return NextResponse.json(
         {
           success: false,

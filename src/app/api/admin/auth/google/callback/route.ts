@@ -9,8 +9,7 @@ import { signAdminToken, isAuthorizedAdminEmail, ADMIN_COOKIE_NAME } from "@/lib
 export async function GET(req: NextRequest) {
   const code = req.nextUrl.searchParams.get("code");
   const error = req.nextUrl.searchParams.get("error");
-  const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || req.nextUrl.origin || "http://localhost:3000";
+  const siteUrl = req.nextUrl.origin || "http://localhost:3000";
   const redirectUri = `${siteUrl}/api/admin/auth/google/callback`;
 
   if (error || !code) {
@@ -24,8 +23,11 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  const clientId =
-    process.env.GOOGLE_CLIENT_ID || process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+  const isLocal =
+    req.nextUrl.hostname === "localhost" || req.nextUrl.hostname === "127.0.0.1";
+  const clientId = isLocal
+    ? (process.env.LOCAL_GOOGLE_CLIENT_ID || process.env.GOOGLE_CLIENT_ID || "274672652455-k2lhi691i2jhvfn7a8ss1365g6acvm8e.apps.googleusercontent.com")
+    : (process.env.GOOGLE_CLIENT_ID || "274672652455-7rare3ft6a63dbou4bi5b6sctq9sr54b.apps.googleusercontent.com");
   const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
 
   if (!clientId || !clientSecret) {

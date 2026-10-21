@@ -52,7 +52,7 @@ function LoginFormContent() {
   const urlError = searchParams.get("error");
   const initialError =
     urlError === "missing_credentials"
-      ? "Chưa cấu hình GOOGLE_CLIENT_ID & GOOGLE_CLIENT_SECRET trong file .env.local để kết nối với Google thật. Xem hướng dẫn bên dưới."
+      ? "Bạn chưa điền GOOGLE_CLIENT_SECRET vào file .env.local! Sau khi bấm nút 'Tạo nên' trên Google Cloud, hãy copy Client Secret dán vào dòng 8 của file .env.local."
       : urlError
       ? decodeURIComponent(urlError)
       : null;
@@ -111,9 +111,15 @@ function LoginFormContent() {
 
   // Initialize official Google Identity Services SDK
   useEffect(() => {
-    const clientId =
-      process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ||
-      "274672652455-k2lhi691i2jhvfn7a8ss1365g6acvm8e.apps.googleusercontent.com";
+    const isLocal =
+      typeof window !== "undefined" &&
+      (window.location.hostname === "localhost" ||
+        window.location.hostname === "127.0.0.1");
+
+    const clientId = isLocal
+      ? (process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ||
+        "274672652455-k2lhi691i2jhvfn7a8ss1365g6acvm8e.apps.googleusercontent.com")
+      : "274672652455-7rare3ft6a63dbou4bi5b6sctq9sr54b.apps.googleusercontent.com";
 
     const script = document.createElement("script");
     script.src = "https://accounts.google.com/gsi/client";
