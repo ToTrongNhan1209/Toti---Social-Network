@@ -315,7 +315,7 @@ export default function AdminDashboardPage() {
                 color: "#237A60",
                 cursor: "help",
               }}
-              title="Tường lửa Anti-DDoS 24/7 Active • Bảo vệ HMAC & Rate-limit"
+              title="ToTrongNhan Cloud 24/7 Active • Hệ Thống Trực Tuyến"
             >
               <ShieldCheck size={18} />
             </div>
@@ -950,7 +950,7 @@ export default function AdminDashboardPage() {
                     boxShadow: "0 0 6px #237A60",
                   }}
                 />
-                <span>Tường lửa 24/7</span>
+                <span>Hệ Thống Trực Tuyến</span>
               </div>
 
               {/* Public Website Link */}

@@ -8,14 +8,10 @@ import React, { useState, useEffect, useCallback, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import {
-  ShieldCheck,
   Lock,
   AlertCircle,
   CheckCircle2,
   ArrowLeft,
-  ExternalLink,
-  HelpCircle,
-  X,
 } from "lucide-react";
 import BrandLogo from "@/components/ui/BrandLogo";
 
@@ -64,7 +60,6 @@ function LoginFormContent() {
   const [success, setSuccess] = useState<string | null>(null);
   const [honeypot, setHoneypot] = useState("");
   const [gsiLoaded, setGsiLoaded] = useState(false);
-  const [showSetupGuide, setShowSetupGuide] = useState(urlError === "missing_credentials");
 
   // Check if already logged in
   useEffect(() => {
@@ -235,27 +230,37 @@ function LoginFormContent() {
           >
             Đăng Nhập Quản Trị Hệ Thống
           </h1>
-          <p style={{ color: "#607F74", fontSize: "0.88rem", margin: 0 }}>
+          <p style={{ color: "#607F74", fontSize: "0.88rem", margin: "0 0 1rem 0" }}>
             Tô Trọng Nhân (Toti) • Quản lý dịch vụ &amp; nội dung bài viết
           </p>
 
-          {/* Security Status Pill */}
-          <div style={{ marginTop: "1rem" }}>
+          {/* System Online Status Pill */}
+          <div>
             <span
               style={{
                 display: "inline-flex",
                 alignItems: "center",
-                gap: "0.4rem",
-                padding: "0.3rem 0.8rem",
+                gap: "0.45rem",
+                padding: "0.35rem 0.85rem",
                 borderRadius: "999px",
-                background: "#E8F8F1",
-                border: "1px solid #B9DCCD",
-                fontSize: "0.78rem",
-                fontWeight: 700,
-                color: "#237A60",
+                background: "#F0FDF4",
+                border: "1px solid #BBF7D0",
+                fontSize: "0.8rem",
+                fontWeight: 600,
+                color: "#166534",
               }}
             >
-              <ShieldCheck size={14} /> Tường lửa Anti-DDoS &amp; Xác thực Google
+              <span
+                style={{
+                  width: 7,
+                  height: 7,
+                  borderRadius: "50%",
+                  background: "#22C55E",
+                  boxShadow: "0 0 6px #22C55E",
+                  display: "inline-block",
+                }}
+              />
+              Hệ Thống Quản Trị Trực Tuyến
             </span>
           </div>
         </div>
@@ -266,9 +271,9 @@ function LoginFormContent() {
             style={{
               padding: "0.85rem 1rem",
               borderRadius: "12px",
-              background: "#FFF2F2",
-              border: "1px solid #F1B2B3",
-              color: "#D9383A",
+              background: "#FEF2F2",
+              border: "1px solid #FECACA",
+              color: "#DC2626",
               fontSize: "0.86rem",
               display: "flex",
               alignItems: "flex-start",
@@ -286,9 +291,9 @@ function LoginFormContent() {
             style={{
               padding: "0.85rem 1rem",
               borderRadius: "12px",
-              background: "#E8F8F1",
-              border: "1px solid #B9DCCD",
-              color: "#237A60",
+              background: "#F0FDF4",
+              border: "1px solid #BBF7D0",
+              color: "#166534",
               fontSize: "0.86rem",
               display: "flex",
               alignItems: "center",
@@ -307,16 +312,16 @@ function LoginFormContent() {
             style={{
               padding: "0.85rem 1rem",
               borderRadius: "12px",
-              background: "#F4FBF8",
-              border: "1px solid #B9DCCD",
-              color: "#237A60",
+              background: "#F0FDF4",
+              border: "1px solid #BBF7D0",
+              color: "#166534",
               fontSize: "0.86rem",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               gap: "0.6rem",
               marginBottom: "1.25rem",
-              fontWeight: 700,
+              fontWeight: 600,
             }}
           >
             <span>⏳ Đang xác thực tài khoản Google...</span>
@@ -344,7 +349,7 @@ function LoginFormContent() {
           }}
         />
 
-        {/* Main Google Real OAuth 2.0 Button */}
+        {/* Main Google Sign-In Button */}
         <a
           href="/api/admin/auth/google"
           style={{
@@ -355,141 +360,62 @@ function LoginFormContent() {
             gap: "0.75rem",
             padding: "0.92rem 1.25rem",
             borderRadius: "14px",
-            border: "1.5px solid #4285F4",
+            border: "1.5px solid #E2E8F0",
             background: "#FFFFFF",
-            color: "#183B32",
+            color: "#1E293B",
             fontSize: "0.95rem",
-            fontWeight: 800,
+            fontWeight: 700,
             textDecoration: "none",
             cursor: "pointer",
-            boxShadow: "0 4px 16px rgba(66, 133, 244, 0.15)",
+            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.04)",
             transition: "all 0.2s ease",
-            marginBottom: "0.75rem",
             boxSizing: "border-box",
           }}
-          title="Mở màn hình chọn tài khoản Google thật (accounts.google.com)"
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = "#CBD5E1";
+            e.currentTarget.style.boxShadow = "0 6px 20px rgba(0, 0, 0, 0.08)";
+            e.currentTarget.style.transform = "translateY(-1px)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = "#E2E8F0";
+            e.currentTarget.style.boxShadow = "0 2px 8px rgba(0, 0, 0, 0.04)";
+            e.currentTarget.style.transform = "translateY(0)";
+          }}
+          title="Đăng nhập bằng tài khoản Google"
         >
-          <GoogleIcon size={22} />
-          <span>Đăng nhập với Google Thật (OAuth 2.0)</span>
+          <GoogleIcon size={20} />
+          <span>Đăng nhập bằng Google</span>
         </a>
 
-        {/* Setup Guide Link */}
-        <div style={{ textAlign: "center", marginTop: "0.25rem", marginBottom: "1.25rem" }}>
-          <button
-            type="button"
-            onClick={() => setShowSetupGuide((prev) => !prev)}
-            style={{
-              background: "none",
-              border: "none",
-              color: "#607F74",
-              fontSize: "0.78rem",
-              fontWeight: 600,
-              cursor: "pointer",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.3rem",
-              textDecoration: "underline",
-            }}
-          >
-            <HelpCircle size={13} />
-            {showSetupGuide ? "Đóng hướng dẫn cấu hình" : "Xem cách cấu hình Google OAuth 2.0 (Google Cloud)"}
-          </button>
-        </div>
-
-        {/* Setup Guide Modal/Card */}
-        {showSetupGuide && (
-          <div
-            style={{
-              background: "#F8FCFA",
-              border: "1.5px solid #A6E4D1",
-              borderRadius: "14px",
-              padding: "1.25rem",
-              marginBottom: "1.25rem",
-              fontSize: "0.84rem",
-              color: "#183B32",
-              lineHeight: 1.6,
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                fontWeight: 800,
-                color: "#183B32",
-                marginBottom: "0.6rem",
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
-                <GoogleIcon size={16} />
-                <span>Cấu Hình Google Cloud OAuth 2.0 Thật:</span>
-              </div>
-              <button
-                type="button"
-                onClick={() => setShowSetupGuide(false)}
-                style={{ background: "none", border: "none", cursor: "pointer", color: "#607F74" }}
-              >
-                <X size={16} />
-              </button>
-            </div>
-            <p style={{ margin: "0 0 0.6rem", color: "#48665B" }}>
-              Để đăng nhập bằng tài khoản Gmail thật (<strong>accounts.google.com</strong>), bạn chỉ cần tạo Client ID hoàn toàn miễn phí:
-            </p>
-            <ol style={{ margin: "0 0 0.8rem", paddingLeft: "1.2rem", color: "#183B32" }}>
-              <li>
-                Mở{" "}
-                <a
-                  href="https://console.cloud.google.com/apis/credentials"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ color: "#237A60", fontWeight: 700 }}
-                >
-                  Google Cloud Console Credentials <ExternalLink size={12} style={{ display: "inline" }} />
-                </a>
-              </li>
-              <li>Bấm <strong>+ Create Credentials</strong> &rarr; Chọn <strong>OAuth client ID</strong> &rarr; Application type: <strong>Web application</strong>.</li>
-              <li>Thêm <strong>Authorized redirect URIs</strong>: <code style={{ background: "#E8F8F1", padding: "0.1rem 0.35rem", borderRadius: "4px" }}>http://localhost:3000/api/admin/auth/google/callback</code></li>
-              <li>Sao chép <strong>Client ID</strong> và <strong>Client Secret</strong> dán vào file <code style={{ background: "#E8F8F1", padding: "0.1rem 0.35rem", borderRadius: "4px" }}>.env.local</code> ở thư mục gốc dự án.</li>
-            </ol>
-            <div>
-              <a
-                href="/api/admin/auth/google"
-                style={{
-                  display: "inline-block",
-                  padding: "0.5rem 1rem",
-                  borderRadius: "8px",
-                  border: "none",
-                  background: "#237A60",
-                  color: "#FFFFFF",
-                  fontWeight: 700,
-                  fontSize: "0.8rem",
-                  textDecoration: "none",
-                  cursor: "pointer",
-                }}
-              >
-                Thử lại Google thật ngay
-              </a>
-            </div>
-          </div>
-        )}
-
-        {/* Security Notice Box */}
+        {/* Security & Access Info Footer */}
         <div
           style={{
             marginTop: "1.75rem",
-            padding: "1rem",
-            borderRadius: "12px",
-            background: "#F4FBF8",
-            border: "1px solid #D7EAE1",
-            fontSize: "0.8rem",
-            color: "#607F74",
-            lineHeight: 1.6,
+            padding: "0.9rem 1.1rem",
+            borderRadius: "14px",
+            background: "#F8FAFC",
+            border: "1px solid #E2E8F0",
+            fontSize: "0.82rem",
+            color: "#64748B",
+            lineHeight: 1.5,
+            textAlign: "center",
           }}
         >
-          <div style={{ fontWeight: 700, color: "#183B32", marginBottom: "0.25rem", display: "flex", alignItems: "center", gap: "0.4rem" }}>
-            <Lock size={13} /> Quy định bảo mật nghiêm ngặt:
+          <div
+            style={{
+              fontWeight: 600,
+              color: "#334155",
+              marginBottom: "0.25rem",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "0.4rem",
+            }}
+          >
+            <Lock size={13} color="#166534" />
+            Cổng Thông Tin Quản Trị
           </div>
-          Chỉ các tài khoản Google nằm trong danh sách trắng (Whitelist) mới được cấp quyền truy cập. Mọi hành vi tấn công dò mật khẩu (Brute-Force) hoặc flood request sẽ tự động bị tường lửa chặn IP trong 15 phút.
+          Dành riêng cho Ban Quản Trị và nhân sự được ủy quyền truy cập hệ thống.
         </div>
       </div>
     </div>

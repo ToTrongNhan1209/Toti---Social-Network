@@ -108,7 +108,7 @@ export default function AdminOverviewManager({
             <span style={{ fontWeight: 800, color: "#A6E4D1", flexShrink: 0 }}>Hệ thống:</span>
             <TypewriterText
               texts={[
-                "Tường lửa Anti-DDoS đang giám sát an toàn 24/7...",
+                "Hệ thống máy chủ Cloudflare đang vận hành ổn định 24/7...",
                 "Đã kết nối trạm thời tiết & định vị thực tế tại Gia Lai...",
                 "Quản lý Dịch vụ CRUD và Bài viết Blog đã sẵn sàng...",
                 "Xác thực bảo mật cao cấp với Google OAuth 2.0...",
@@ -209,7 +209,7 @@ export default function AdminOverviewManager({
             </div>
             <div>
               <div style={{ fontWeight: 800, color: "#183B32", fontSize: "1.05rem" }}>
-                Tường Lửa Anti-DDoS
+                Bảo Mật &amp; Hạ Tầng Đám Mây
               </div>
               <div style={{ fontSize: "0.8rem", color: "#237A60", fontWeight: 700 }}>
                 ● Đang Hoạt Động (Active)
@@ -217,7 +217,7 @@ export default function AdminOverviewManager({
             </div>
           </div>
           <p style={{ fontSize: "0.85rem", color: "#607F74", lineHeight: 1.6, margin: 0, marginBottom: "1rem" }}>
-            Sliding Window bảo vệ 15 req/phút cho các API nhạy cảm. Tự động phát hiện và khóa IP các bot quét lỗ hổng hoặc flood URL query.
+            Hạ tầng mạng toàn cầu Cloudflare Edge đảm bảo tốc độ phản hồi siêu nhanh, mã hóa phiên làm việc và bảo mật thông tin tối ưu.
           </p>
           <div
             style={{
