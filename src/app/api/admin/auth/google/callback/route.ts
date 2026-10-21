@@ -9,7 +9,14 @@ import { signAdminToken, isAuthorizedAdminEmail, ADMIN_COOKIE_NAME } from "@/lib
 export async function GET(req: NextRequest) {
   const code = req.nextUrl.searchParams.get("code");
   const error = req.nextUrl.searchParams.get("error");
-  const siteUrl = req.nextUrl.origin || "http://localhost:3000";
+  const host =
+    req.headers.get("x-forwarded-host") ||
+    req.headers.get("host") ||
+    req.nextUrl.host;
+  const isLocalHost =
+    host.includes("localhost") || host.includes("127.0.0.1");
+  const protocol = isLocalHost ? "http" : "https";
+  const siteUrl = `${protocol}://${host}`;
   const redirectUri = `${siteUrl}/api/admin/auth/google/callback`;
 
   if (error || !code) {

@@ -6,13 +6,21 @@ import { NextRequest, NextResponse } from "next/server";
  * Redirects the user to Google's official accounts.google.com consent/account-picker screen.
  */
 export async function GET(req: NextRequest) {
+  const host =
+    req.headers.get("x-forwarded-host") ||
+    req.headers.get("host") ||
+    req.nextUrl.host;
   const isLocal =
-    req.nextUrl.hostname === "localhost" || req.nextUrl.hostname === "127.0.0.1";
+    host.includes("localhost") ||
+    host.includes("127.0.0.1") ||
+    req.nextUrl.hostname === "localhost" ||
+    req.nextUrl.hostname === "127.0.0.1";
   const clientId = isLocal
     ? (process.env.LOCAL_GOOGLE_CLIENT_ID || process.env.GOOGLE_CLIENT_ID || "")
     : (process.env.HOSTED_GOOGLE_CLIENT_ID || process.env.GOOGLE_CLIENT_ID || "");
   const clientSecret = process.env.GOOGLE_CLIENT_SECRET || "";
-  const siteUrl = req.nextUrl.origin || "http://localhost:3000";
+  const protocol = isLocal ? "http" : "https";
+  const siteUrl = `${protocol}://${host}`;
   const redirectUri = `${siteUrl}/api/admin/auth/google/callback`;
 
   // If Client ID or Secret is not configured in .env.local yet, redirect back with informative message
