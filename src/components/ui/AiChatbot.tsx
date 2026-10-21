@@ -241,8 +241,8 @@ export default function AiChatbot() {
             }}
             aria-label="Mở khung chat tư vấn AI"
             style={{
-              width: 56,
-              height: 56,
+              width: 58,
+              height: 58,
               borderRadius: "50%",
               background: "linear-gradient(135deg, #237A60 0%, #183B32 100%)",
               color: "#FFFFFF",
@@ -250,9 +250,11 @@ export default function AiChatbot() {
               alignItems: "center",
               justifyContent: "center",
               cursor: "pointer",
-              boxShadow: "0 6px 24px rgba(35, 122, 96, 0.45)",
-              border: "2px solid #A6E4D1",
+              boxShadow: "0 8px 28px rgba(35, 122, 96, 0.45)",
+              border: "2.5px solid #A6E4D1",
               position: "relative",
+              padding: 0,
+              overflow: "hidden",
               transition: "transform 0.2s ease, box-shadow 0.2s ease",
             }}
             onMouseEnter={(e) => {
@@ -262,7 +264,16 @@ export default function AiChatbot() {
               e.currentTarget.style.transform = "scale(1)";
             }}
           >
-            <Bot size={28} />
+            <img
+              src="/chatbot-avatar.png"
+              alt="Toti AI Mascot"
+              style={{
+                width: "100%",
+                height: "100%",
+                borderRadius: "50%",
+                objectFit: "cover",
+              }}
+            />
             {/* Green Online Dot */}
             <span
               style={{
@@ -275,6 +286,7 @@ export default function AiChatbot() {
                 background: "#22C55E",
                 border: "2px solid #FFFFFF",
                 boxShadow: "0 0 8px #22C55E",
+                zIndex: 2,
               }}
             />
           </button>
@@ -318,14 +330,15 @@ export default function AiChatbot() {
             <div style={{ display: "flex", alignItems: "center", gap: "0.65rem" }}>
               <div style={{ position: "relative" }}>
                 <img
-                  src="/logo/final-avatar.png"
-                  alt="Tô Trọng Nhân"
+                  src="/chatbot-avatar.png"
+                  alt="Tô Trọng Nhân (Toti AI)"
                   style={{
-                    width: 38,
-                    height: 38,
+                    width: 40,
+                    height: 40,
                     borderRadius: "50%",
                     objectFit: "cover",
                     border: "2px solid #A6E4D1",
+                    background: "#E8F8F1",
                   }}
                   onError={(e) => {
                     (e.target as HTMLImageElement).src =
@@ -504,24 +517,49 @@ export default function AiChatbot() {
                   >
                     <div
                       style={{
-                        maxWidth: "85%",
-                        padding: "0.75rem 0.95rem",
-                        borderRadius:
-                          msg.role === "user"
-                            ? "18px 18px 4px 18px"
-                            : "18px 18px 18px 4px",
-                        background:
-                          msg.role === "user" ? "#237A60" : "#FFFFFF",
-                        color: msg.role === "user" ? "#FFFFFF" : "#183B32",
-                        border:
-                          msg.role === "user"
-                            ? "none"
-                            : "1px solid #D7EAE1",
-                        boxShadow: "0 2px 8px rgba(24, 59, 50, 0.05)",
-                        fontSize: "0.85rem",
+                        display: "flex",
+                        alignItems: "flex-end",
+                        gap: "0.45rem",
+                        maxWidth: "88%",
                       }}
                     >
-                      {renderMessageContent(msg.content)}
+                      {msg.role === "assistant" && (
+                        <img
+                          src="/chatbot-avatar.png"
+                          alt="Toti AI"
+                          style={{
+                            width: 28,
+                            height: 28,
+                            borderRadius: "50%",
+                            objectFit: "cover",
+                            border: "1px solid #A6E4D1",
+                            background: "#E8F8F1",
+                            flexShrink: 0,
+                            marginBottom: "2px",
+                          }}
+                        />
+                      )}
+                      <div
+                        style={{
+                          flex: 1,
+                          padding: "0.75rem 0.95rem",
+                          borderRadius:
+                            msg.role === "user"
+                              ? "18px 18px 4px 18px"
+                              : "18px 18px 18px 4px",
+                          background:
+                            msg.role === "user" ? "#237A60" : "#FFFFFF",
+                          color: msg.role === "user" ? "#FFFFFF" : "#183B32",
+                          border:
+                            msg.role === "user"
+                              ? "none"
+                              : "1px solid #D7EAE1",
+                          boxShadow: "0 2px 8px rgba(24, 59, 50, 0.05)",
+                          fontSize: "0.85rem",
+                        }}
+                      >
+                        {renderMessageContent(msg.content)}
+                      </div>
                     </div>
 
                     {/* Timestamp */}
@@ -530,7 +568,7 @@ export default function AiChatbot() {
                         fontSize: "0.68rem",
                         color: "#8DA79E",
                         marginTop: "0.2rem",
-                        padding: "0 0.3rem",
+                        padding: msg.role === "assistant" ? "0 0 0 2.2rem" : "0 0.3rem",
                       }}
                     >
                       {msg.timestamp}
@@ -544,6 +582,7 @@ export default function AiChatbot() {
                           flexWrap: "wrap",
                           gap: "0.4rem",
                           marginTop: "0.5rem",
+                          paddingLeft: msg.role === "assistant" ? "2.2rem" : 0,
                         }}
                       >
                         {msg.suggestedActions.map((act, aIdx) => (
@@ -582,45 +621,61 @@ export default function AiChatbot() {
 
                 {/* Typing Indicator */}
                 {loading && (
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "0.4rem",
-                      background: "#FFFFFF",
-                      padding: "0.6rem 0.9rem",
-                      borderRadius: "18px 18px 18px 4px",
-                      border: "1px solid #D7EAE1",
-                      width: "fit-content",
-                    }}
-                  >
-                    <span
+                  <div style={{ display: "flex", alignItems: "flex-end", gap: "0.45rem" }}>
+                    <img
+                      src="/chatbot-avatar.png"
+                      alt="Toti AI"
                       style={{
-                        width: 7,
-                        height: 7,
+                        width: 28,
+                        height: 28,
                         borderRadius: "50%",
-                        background: "#237A60",
-                        animation: "bounce 1.2s infinite 0s",
+                        objectFit: "cover",
+                        border: "1px solid #A6E4D1",
+                        background: "#E8F8F1",
+                        flexShrink: 0,
+                        marginBottom: "2px",
                       }}
                     />
-                    <span
+                    <div
                       style={{
-                        width: 7,
-                        height: 7,
-                        borderRadius: "50%",
-                        background: "#237A60",
-                        animation: "bounce 1.2s infinite 0.2s",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.4rem",
+                        background: "#FFFFFF",
+                        padding: "0.6rem 0.9rem",
+                        borderRadius: "18px 18px 18px 4px",
+                        border: "1px solid #D7EAE1",
+                        width: "fit-content",
                       }}
-                    />
-                    <span
-                      style={{
-                        width: 7,
-                        height: 7,
-                        borderRadius: "50%",
-                        background: "#237A60",
-                        animation: "bounce 1.2s infinite 0.4s",
-                      }}
-                    />
+                    >
+                      <span
+                        style={{
+                          width: 7,
+                          height: 7,
+                          borderRadius: "50%",
+                          background: "#237A60",
+                          animation: "bounce 1.2s infinite 0s",
+                        }}
+                      />
+                      <span
+                        style={{
+                          width: 7,
+                          height: 7,
+                          borderRadius: "50%",
+                          background: "#237A60",
+                          animation: "bounce 1.2s infinite 0.2s",
+                        }}
+                      />
+                      <span
+                        style={{
+                          width: 7,
+                          height: 7,
+                          borderRadius: "50%",
+                          background: "#237A60",
+                          animation: "bounce 1.2s infinite 0.4s",
+                        }}
+                      />
+                    </div>
                   </div>
                 )}
 
