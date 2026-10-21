@@ -2,12 +2,12 @@
 
 /**
  * components/layout/Navbar.tsx – ToTrongNhan
- * Creative Floating Capsule & Mega-Menu Header with Soft Mint Aesthetics
+ * Creative, High-End Floating Capsule Header with Soft Mint Aesthetics
+ * Clean, legible, attractive design with live status ticker and mega menu.
  */
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   Menu,
@@ -16,11 +16,10 @@ import {
   Phone,
   Search,
   Sparkles,
-  Bot,
   Clock,
   ArrowRight,
   ShieldCheck,
-  Zap,
+  CheckCircle2,
 } from "lucide-react";
 import BrandLogo from "@/components/ui/BrandLogo";
 import SocialPlatformLogo from "@/components/ui/SocialPlatformLogo";
@@ -168,7 +167,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Mega menu grace timeout
+  // Mega menu grace timeout for smooth cursor movement
   const handleDropdownEnter = () => {
     if (closeTimeoutRef.current) {
       clearTimeout(closeTimeoutRef.current);
@@ -180,12 +179,7 @@ export default function Navbar() {
   const handleDropdownLeave = () => {
     closeTimeoutRef.current = setTimeout(() => {
       setDropOpen(false);
-    }, 240);
-  };
-
-  // Trigger AI Chatbot modal
-  const handleOpenAiChatbot = () => {
-    window.dispatchEvent(new CustomEvent("open-ai-chatbot"));
+    }, 220);
   };
 
   const isActive = (href: string) =>
@@ -234,7 +228,7 @@ export default function Navbar() {
                 gap: "0.35rem",
                 color: "#A6E4D1",
                 background: "rgba(166, 228, 209, 0.15)",
-                padding: "0.15rem 0.5rem",
+                padding: "0.15rem 0.55rem",
                 borderRadius: "999px",
                 fontSize: "0.72rem",
                 border: "1px solid rgba(166, 228, 209, 0.3)",
@@ -290,7 +284,7 @@ export default function Navbar() {
                 <span style={{ color: "rgba(255,255,255,0.4)" }}>•</span>
                 <span>✨ Bảo hành 30 ngày bù tụt tự động</span>
                 <span style={{ color: "rgba(255,255,255,0.4)" }}>•</span>
-                <span>📞 Hotline / Zalo: {BRAND.phone}</span>
+                <span>📞 Hotline: {BRAND.phone}</span>
               </div>
             </div>
           </div>
@@ -319,7 +313,7 @@ export default function Navbar() {
                 gap: "0.25rem",
               }}
             >
-              <span>Zalo: {BRAND.zalo}</span>
+              <span>Zalo Tư Vấn: {BRAND.zalo}</span>
             </a>
           </div>
         </div>
@@ -338,69 +332,97 @@ export default function Navbar() {
             ? "rgba(255, 255, 255, 0.94)"
             : "rgba(244, 251, 248, 0.95)",
           borderBottom: scrolled ? "none" : "1px solid #D7EAE1",
-          backdropFilter: "blur(20px)",
-          WebkitBackdropFilter: "blur(20px)",
+          backdropFilter: "blur(24px)",
+          WebkitBackdropFilter: "blur(24px)",
           transition: "all 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
           boxShadow: scrolled
-            ? "0 18px 45px -10px rgba(24, 59, 50, 0.12), 0 0 0 1px rgba(166, 228, 209, 0.65)"
+            ? "0 18px 45px -10px rgba(24, 59, 50, 0.12), 0 0 0 1px rgba(166, 228, 209, 0.75)"
             : "0 4px 18px rgba(24, 59, 50, 0.03)",
         }}
       >
         <div
           className="container-xl"
           style={{
-            height: scrolled ? "58px" : "66px",
+            height: scrolled ? "60px" : "68px",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            gap: "0.75rem",
+            gap: "1.25rem",
             transition: "height 0.3s ease",
           }}
         >
-          {/* 1. Official Brand Logo */}
-          <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-            <BrandLogo size={scrolled ? 36 : 42} showText={false} href="/" />
-            <Link
-              href="/"
+          {/* 1. Official Brand Logo Lockup */}
+          <Link
+            href="/"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "0.75rem",
+              textDecoration: "none",
+              flexShrink: 0,
+            }}
+          >
+            <div
               style={{
-                display: "flex",
-                flexDirection: "column",
-                textDecoration: "none",
-                lineHeight: 1.15,
+                position: "relative",
+                transition: "transform 0.2s ease",
               }}
+              className="hover:scale-105"
             >
+              <BrandLogo size={scrolled ? 38 : 44} showText={false} href="/" />
+            </div>
+
+            <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.2 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.35rem" }}>
+                <span
+                  style={{
+                    fontSize: "1.08rem",
+                    fontWeight: 850,
+                    color: "#183B32",
+                    letterSpacing: "-0.01em",
+                  }}
+                >
+                  Tô Trọng Nhân
+                </span>
+                <span
+                  title="Dịch vụ MXH xác minh uy tín"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: 15,
+                    height: 15,
+                    borderRadius: "50%",
+                    background: "#237A60",
+                    color: "#FFFFFF",
+                    fontSize: "0.62rem",
+                    fontWeight: 900,
+                  }}
+                >
+                  ✓
+                </span>
+              </div>
               <span
                 style={{
-                  fontSize: "1.05rem",
-                  fontWeight: 900,
-                  color: "#183B32",
-                  letterSpacing: "-0.01em",
-                }}
-              >
-                Tô Trọng Nhân
-              </span>
-              <span
-                style={{
-                  fontSize: "0.68rem",
-                  fontWeight: 700,
-                  color: "#237A60",
-                  letterSpacing: "0.06em",
+                  fontSize: "0.7rem",
+                  fontWeight: 650,
+                  color: "#527568",
+                  letterSpacing: "0.04em",
                   textTransform: "uppercase",
                 }}
               >
-                Toti Social Media
+                Social Growth Agency
               </span>
-            </Link>
-          </div>
+            </div>
+          </Link>
 
-          {/* 2. Desktop Navigation with Creative Mega Menu */}
+          {/* 2. Desktop Navigation with Clean Mega Menu */}
           <nav
             className="hide-mobile"
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "0.25rem",
-              margin: "0 auto",
+              gap: "0.35rem",
             }}
             role="navigation"
             aria-label="Main navigation"
@@ -420,7 +442,7 @@ export default function Navbar() {
                       display: "flex",
                       alignItems: "center",
                       gap: "0.35rem",
-                      padding: "0.45rem 0.85rem",
+                      padding: "0.5rem 0.9rem",
                       borderRadius: "999px",
                       border: "none",
                       background: dropOpen
@@ -433,7 +455,7 @@ export default function Navbar() {
                           ? "#237A60"
                           : "#183B32",
                       fontFamily: "var(--font-sans)",
-                      fontSize: "0.9rem",
+                      fontSize: "0.92rem",
                       fontWeight: 700,
                       cursor: "pointer",
                       transition: "all 0.2s ease",
@@ -444,7 +466,7 @@ export default function Navbar() {
                     <span
                       style={{
                         fontSize: "0.65rem",
-                        padding: "0.1rem 0.38rem",
+                        padding: "0.1rem 0.4rem",
                         borderRadius: "999px",
                         background: "#E8F8F1",
                         color: "#237A60",
@@ -470,10 +492,10 @@ export default function Navbar() {
                         top: "100%",
                         left: "50%",
                         transform: "translateX(-50%)",
-                        paddingTop: "10px",
+                        paddingTop: "12px",
                         zIndex: 200,
-                        width: "560px",
-                        maxWidth: "90vw",
+                        width: "580px",
+                        maxWidth: "92vw",
                       }}
                       onMouseEnter={handleDropdownEnter}
                       onMouseLeave={handleDropdownLeave}
@@ -483,10 +505,10 @@ export default function Navbar() {
                         style={{
                           background: "#FFFFFF",
                           border: "1.5px solid #A6E4D1",
-                          borderRadius: "22px",
+                          borderRadius: "20px",
                           padding: "1.25rem",
                           boxShadow:
-                            "0 20px 48px -10px rgba(24, 59, 50, 0.18), 0 0 0 1px rgba(255,255,255,0.9) inset",
+                            "0 22px 50px -10px rgba(24, 59, 50, 0.18), 0 0 0 1px rgba(255,255,255,0.9) inset",
                         }}
                       >
                         {/* Mega Menu Header */}
@@ -504,7 +526,7 @@ export default function Navbar() {
                             <Sparkles size={16} style={{ color: "#237A60" }} />
                             <span
                               style={{
-                                fontSize: "0.78rem",
+                                fontSize: "0.8rem",
                                 fontWeight: 800,
                                 color: "#183B32",
                                 textTransform: "uppercase",
@@ -703,9 +725,9 @@ export default function Navbar() {
                   key={link.id}
                   href={link.href}
                   style={{
-                    padding: "0.45rem 0.8rem",
+                    padding: "0.5rem 0.85rem",
                     borderRadius: "999px",
-                    fontSize: "0.88rem",
+                    fontSize: "0.9rem",
                     fontWeight: 700,
                     color: isActive(link.href)
                       ? "#237A60"
@@ -743,9 +765,9 @@ export default function Navbar() {
             )}
           </nav>
 
-          {/* 3. Right Action Items */}
-          <div style={{ display: "flex", alignItems: "center", gap: "0.55rem" }}>
-            {/* Quick Search Trigger Pill */}
+          {/* 3. Right Action Area (Clean, Legible, High-Conversion) */}
+          <div style={{ display: "flex", alignItems: "center", gap: "0.65rem", flexShrink: 0 }}>
+            {/* Quick Search Pill */}
             <button
               type="button"
               onClick={() => setSearchModalOpen(true)}
@@ -754,12 +776,12 @@ export default function Navbar() {
                 display: "flex",
                 alignItems: "center",
                 gap: "0.45rem",
-                padding: "0.42rem 0.75rem",
+                padding: "0.45rem 0.85rem",
                 borderRadius: "999px",
                 border: "1px solid #B9DCCD",
                 background: "#FFFFFF",
                 color: "#48665B",
-                fontSize: "0.82rem",
+                fontSize: "0.84rem",
                 fontWeight: 600,
                 cursor: "pointer",
                 transition: "all 0.2s ease",
@@ -774,7 +796,7 @@ export default function Navbar() {
                   color: "#237A60",
                   background: "#E8F8F1",
                   border: "1px solid #A6E4D1",
-                  padding: "0.08rem 0.35rem",
+                  padding: "0.1rem 0.38rem",
                   borderRadius: "6px",
                   fontWeight: 800,
                 }}
@@ -783,78 +805,64 @@ export default function Navbar() {
               </kbd>
             </button>
 
-            {/* Creative AI Chatbot Trigger Pill Button */}
-            <button
-              type="button"
-              onClick={handleOpenAiChatbot}
+            {/* Clean Hotline Pill with Live Online Dot */}
+            <a
+              href={`tel:${BRAND.phone.replace(/\s/g, "")}`}
+              className="hide-mobile hover:border-[#237A60] hover:bg-[#E8F8F1]"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "0.45rem",
-                padding: "0.38rem 0.85rem 0.38rem 0.45rem",
+                padding: "0.45rem 0.85rem",
                 borderRadius: "999px",
-                background: "linear-gradient(135deg, #183B32 0%, #237A60 100%)",
-                border: "1.5px solid #A6E4D1",
-                color: "#FFFFFF",
-                fontSize: "0.82rem",
+                border: "1px solid #B9DCCD",
+                background: "#FFFFFF",
+                color: "#183B32",
+                fontSize: "0.84rem",
                 fontWeight: 700,
-                cursor: "pointer",
-                boxShadow: "0 6px 18px rgba(35, 122, 96, 0.22)",
+                textDecoration: "none",
                 transition: "all 0.2s ease",
               }}
-              className="hover:scale-105 active:scale-95"
-              title="Mở trợ lý AI Tô Trọng Nhân (Toti)"
+              title="Hotline hỗ trợ trực tiếp 24/7"
             >
-              <div
-                style={{
-                  width: 26,
-                  height: 26,
-                  borderRadius: "50%",
-                  overflow: "hidden",
-                  border: "1.5px solid #A6E4D1",
-                  position: "relative",
-                  background: "#FFFFFF",
-                  flexShrink: 0,
-                }}
-              >
-                <Image
-                  src="/chatbot-avatar.png"
-                  alt="AI Toti"
-                  width={26}
-                  height={26}
-                  style={{ objectFit: "cover", width: "100%", height: "100%" }}
-                />
-              </div>
-              <span className="hide-mobile">Hỏi AI Toti</span>
               <span
                 style={{
-                  fontSize: "0.62rem",
-                  background: "#A6E4D1",
-                  color: "#183B32",
-                  fontWeight: 900,
-                  padding: "0.05rem 0.35rem",
-                  borderRadius: "999px",
-                  textTransform: "uppercase",
+                  width: 7,
+                  height: 7,
+                  borderRadius: "50%",
+                  background: "#10B981",
+                  boxShadow: "0 0 6px #10B981",
                 }}
-              >
-                AI 24/7
-              </span>
-            </button>
+              />
+              <Phone size={13} style={{ color: "#237A60" }} />
+              <span>{BRAND.phone}</span>
+            </a>
 
-            {/* Direct Primary CTA */}
+            {/* Standout Primary CTA Button */}
             <Link
               href="/contact"
-              className="btn-primary btn-shimmer"
+              className="btn-primary btn-shimmer group"
               style={{
-                fontSize: "0.82rem",
-                padding: "0.45rem 1rem",
+                fontSize: "0.86rem",
+                padding: "0.5rem 1.15rem",
                 borderRadius: "999px",
                 whiteSpace: "nowrap",
-                fontWeight: 700,
-                boxShadow: "0 6px 18px rgba(35, 122, 96, 0.25)",
+                fontWeight: 750,
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.4rem",
+                boxShadow: "0 6px 20px rgba(35, 122, 96, 0.28)",
+                transition: "all 0.2s ease",
               }}
             >
-              Đặt Dịch Vụ
+              <span>Đặt Dịch Vụ</span>
+              <ArrowRight
+                size={14}
+                style={{
+                  transition: "transform 0.2s ease",
+                }}
+                className="group-hover:translate-x-0.5"
+              />
             </Link>
 
             {/* Mobile Search Button */}
@@ -918,61 +926,8 @@ export default function Navbar() {
               boxShadow: "0 18px 40px rgba(24, 59, 50, 0.12)",
             }}
           >
-            {/* Mobile AI Chatbot Shortcut Card */}
-            <div
-              onClick={() => {
-                setMenuOpen(false);
-                handleOpenAiChatbot();
-              }}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                padding: "0.85rem 1rem",
-                borderRadius: "16px",
-                background: "linear-gradient(135deg, #183B32 0%, #237A60 100%)",
-                color: "#FFFFFF",
-                marginBottom: "1rem",
-                cursor: "pointer",
-                boxShadow: "0 8px 20px rgba(24, 59, 50, 0.15)",
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                <div
-                  style={{
-                    width: 38,
-                    height: 38,
-                    borderRadius: "50%",
-                    overflow: "hidden",
-                    border: "2px solid #A6E4D1",
-                    background: "#FFFFFF",
-                  }}
-                >
-                  <Image
-                    src="/chatbot-avatar.png"
-                    alt="AI Toti"
-                    width={38}
-                    height={38}
-                    style={{ objectFit: "cover", width: "100%", height: "100%" }}
-                  />
-                </div>
-                <div>
-                  <div style={{ fontWeight: 800, fontSize: "0.92rem", display: "flex", alignItems: "center", gap: "0.35rem" }}>
-                    <span>Trợ Lý AI Tô Trọng Nhân</span>
-                    <span style={{ fontSize: "0.62rem", background: "#A6E4D1", color: "#183B32", padding: "0.1rem 0.35rem", borderRadius: "999px" }}>
-                      24/7
-                    </span>
-                  </div>
-                  <div style={{ fontSize: "0.72rem", color: "#A6E4D1" }}>
-                    Báo giá ngay trong 3 giây • Bấm để chat
-                  </div>
-                </div>
-              </div>
-              <ArrowRight size={18} style={{ color: "#A6E4D1" }} />
-            </div>
-
             {/* Mobile 6 Platforms Quick Grid */}
-            <div style={{ marginBottom: "1rem" }}>
+            <div style={{ marginBottom: "1.25rem" }}>
               <div
                 style={{
                   fontSize: "0.75rem",
@@ -1055,11 +1010,11 @@ export default function Navbar() {
             <div
               style={{
                 borderTop: "1px solid #D7EAE1",
-                marginTop: "1rem",
+                marginTop: "1.25rem",
                 paddingTop: "1rem",
                 display: "flex",
                 flexDirection: "column",
-                gap: "0.5rem",
+                gap: "0.6rem",
               }}
             >
               <a
@@ -1098,6 +1053,7 @@ export default function Navbar() {
                   fontWeight: 800,
                   fontSize: "0.9rem",
                   textDecoration: "none",
+                  boxShadow: "0 4px 14px rgba(0, 104, 255, 0.25)",
                 }}
               >
                 💬 Chat Zalo Trực Tiếp ({BRAND.zalo})
